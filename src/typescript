@@ -1,0 +1,996 @@
+Script started on 2022-03-14 17:07:32+01:00 [TERM="screen-256color" TTY="/dev/pts/5" COLUMNS="101" LINES="29"]
+[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/src[00m$ lscd ..[C[C[C[C[C[K[Kscript/
+[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/src/script[00m$ ls
+allosaurus_matrix.py  extract_ppg.py             __init__.py  testnnet.py       train_waveglow.py
+extract_feats.py      GenerateJSpeechGrammar.py  [0m[38;5;5m__pycache__[0m  testnnet.py.save  valid_data_set.txt
+extract_ppg_opt.py    generate_synthesis.py      [38;5;5mtest_dir[0m     train_ppg2mel.py
+[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/src/script[00m$ M(reverse-i-search)`': [K
+[KM[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cp': cd script/y': subl make_torch_dataset.py[C[8@failed reverse-i-search)`pyt[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1@h[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/src/script[00m$ subl make_torch_dataset.py[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Ke[K[K[K[K[K[Kpythion[K[K[Kon extract_ppg.py 
+3.6.13 |Anaconda, Inc.| (default, Feb 23 2021, 21:15:04) 
+[GCC 7.3.0]
+sys.version_info(major=3, minor=6, micro=13, releaselevel='final', serial=0)
+Traceback (most recent call last):
+  File "extract_ppg.py", line 15, in <module>
+    from common import  decode
+  File "../common/__init__.py", line 4, in <module>
+    from .utterance import *
+  File "../common/utterance.py", line 22, in <module>
+    from common.data_utterance_pb2 import DataUtterance, Segment, MetaData,\
+ModuleNotFoundError: No module named 'common.data_utterance_pb2'
+[38;5;202m1 [38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/src/script[00m$ [H[J[38;5;202m1 [38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/src/script[00m$ ls
+allosaurus_matrix.py  extract_ppg.py             __init__.py  testnnet.py       train_waveglow.py
+extract_feats.py      GenerateJSpeechGrammar.py  [0m[38;5;5m__pycache__[0m  testnnet.py.save  valid_data_set.txt
+extract_ppg_opt.py    generate_synthesis.py      [38;5;5mtest_dir[0m     train_ppg2mel.py
+[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/src/script[00m$ [KM[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/src/script[00m$ lspython extract_ppg.py [C[C[C[C[C[C[C[C[C[C[C[C[C[Cls[Kcd script/ls[Kcd ..[3Plscd ../../../ls[Kcd -[2Plsclearbyobu[3Plsclear[3Plscd Workspace/ls[Kcd /mnt/mydrive/home/aghilas/[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Clear[K[3Plsclear[3Plscd /mnt/mydrive/home/aghilas/[C[C[C[C[C[C[C[C[C[C[C[C[C[C[3Pssh asini@transit.irisa.fr[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls[Kcd ..[3Plscd models/ls[Kcd breton-neural-synthesis/[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls[Kcd CAPT-DG/ls[Kclear[3Plscd ../SynPaFlex-Code/[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls[Kcd ..[3Plscd. .[3Plscd ../../ls[Kcd script/[K[3Plscd src/ls[Kcd ..[3Plscd test/ls[Kcd ..[3Plscd allopreval/ls[Kcd allopreval/ls[Kclear[3Plscd Nadine/ls[Kclear[3Plscd Experiments/ls[Kclear[3Plscd Workspace/ssh sini@potionasini@transit.irisa.fr[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls[Kclear[3Plsbyobu[3Plsclear[3Plspwd[1Plscd /mnt/mydrive/home/aghilas/[C[C[C[C[C[C[C[C[C[C[C[C[C[C[3Pssh asini@transit.irisa.fr[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls[Kssh asini@transit.irisa.fr[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[H[J[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/src/script[00m$ ls
+allosaurus_matrix.py  extract_ppg.py             __init__.py  testnnet.py       train_waveglow.py
+extract_feats.py      GenerateJSpeechGrammar.py  [0m[38;5;5m__pycache__[0m  testnnet.py.save  valid_data_set.txt
+extract_ppg_opt.py    generate_synthesis.py      [38;5;5mtest_dir[0m     train_ppg2mel.py
+[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/src/script[00m$ cd ../
+[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/src[00m$ ls
+[0m[38;5;5mcommon[0m  __init__.py  [38;5;5mppg[0m  [38;5;5mscript[0m  typescript  [38;5;5mwaveglow[0m
+[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/src[00m$ [H[J[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/src[00m$ ls
+[0m[38;5;5mcommon[0m  __init__.py  [38;5;5mppg[0m  [38;5;5mscript[0m  typescript  [38;5;5mwaveglow[0m
+[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/src[00m$ cd ../data_fr/f[K
+[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/data_fr[00m$ ls
+[0m[38;5;5mam[0m  [38;5;5mconf[0m  [38;5;5mextractor[0m  [38;5;5mivectors_test_hires[0m
+[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/data_fr[00m$ cd[K[Kmkdi [Kr files[H[J[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/data_fr[00m$ mkdir files[K[K[K[K[K[K[K[K[K[K[K[H[J[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/data_fr[00m$ ls
+[0m[38;5;5mam[0m  [38;5;5mconf[0m  [38;5;5mextractor[0m  [38;5;5mfilelists[0m  [38;5;5mivectors_test_hires[0m
+[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/data_fr[00m$ [H[J[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/data_fr[00m$ ls
+[0m[38;5;5mam[0m  [38;5;5mconf[0m  [38;5;5mextractor[0m  [38;5;5mfilelists[0m  [38;5;5mivectors_test_hires[0m
+[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/data_fr[00m$ cd filelists/
+[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/data_fr/filelists[00m$ ls
+[0m[38;5;5mneb_syn[0m
+[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/data_fr/filelists[00m$ cd neb_syn/
+[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/data_fr/filelists/neb_syn[00m$ ls
+[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/data_fr/filelists/neb_syn[00m$ [H[J[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/data_fr/filelists/neb_syn[00m$ ls
+[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/data_fr/filelists/neb_syn[00m$ [H[J[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/data_fr/filelists/neb_syn[00m$ ls
+spk2utt  training_set.txt  validation_set.txt  wav.scp
+[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/data_fr/filelists/neb_syn[00m$ [H[J[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/data_fr/filelists/neb_syn[00m$ ls
+spk2utt  training_set.txt  validation_set.txt  wav.scp
+[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/data_fr/filelists/neb_syn[00m$ cd ../../
+[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/data_fr[00m$ ls
+[0m[38;5;5mam[0m  [38;5;5mconf[0m  [38;5;5mextractor[0m  [38;5;5mfilelists[0m  [38;5;5mivectors_test_hires[0m
+[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/data_fr[00m$ p[Kmkdir ppf[Kg
+[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/data_fr[00m$ [H[J[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/data_fr[00m$ ls
+[0m[38;5;5mam[0m  [38;5;5mconf[0m  [38;5;5mextractor[0m  [38;5;5mfilelists[0m  [38;5;5mivectors_test_hires[0m  [38;5;5mppg[0m
+[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/data_fr[00m$ cd ..[K[Ksc[K[K[K[K[K[H[J[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/data_fr[00m$ ls
+[0m[38;5;5mam[0m  [38;5;5mconf[0m  [38;5;5mextractor[0m  [38;5;5mfilelists[0m  [38;5;5mivectors_test_hires[0m  [38;5;5mppg[0m
+[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/data_fr[00m$ cd sc[K[K[K..[K[K ../src/script/
+[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/src/script[00m$ ls
+allosaurus_matrix.py  extract_ppg.py             __init__.py  testnnet.py       train_waveglow.py
+extract_feats.py      GenerateJSpeechGrammar.py  [0m[38;5;5m__pycache__[0m  testnnet.py.save  valid_data_set.txt
+extract_ppg_opt.py    generate_synthesis.py      [38;5;5mtest_dir[0m     train_ppg2mel.py
+[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/src/script[00m$ vim x[Ke[K[K[K[K[Ksubl extract_ppg.py 
+[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/src/script[00m$ [H[J[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/src/script[00m$ cd ../../
+[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg[00m$ ls
+cvc-via-ppg_prepare.sh     environment_org.yaml  README.md        [0m[38;5;5msrc[0m
+cvc-via-ppg_prepare.slurm  environment.yml       requirement.txt  [38;5;5mtools[0m
+[38;5;5mdata_fr[0m                    LICENSE               spec-file.txt
+[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg[00m$ cd data_fr/
+[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/data_fr[00m$ ls
+[0m[38;5;5mam[0m  [38;5;5mconf[0m  [38;5;5mextractor[0m  [38;5;5mfilelists[0m  [38;5;5mivectors_test_hires[0m  [38;5;5mppg[0m
+[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/data_fr[00m$ vim mfcc_hirescmfcc_hiresomfcc_hiresnf/mfcc_hires[C[C[C[C[C[C[C[C[C[C.conf 
+[?1049h[?1h=[1;14r[23m[24m[0m[H[J[?25l[14;1H"conf/mfcc_hires.conf" 11L, 695C[1;1H[34m# config for high-resolution MFCC features, intended for neural network training
+# Note: we keep all cepstra, so it has the same info as filterbank features,
+# but MFCC is more easily compressible (because less correlated) which is why 
+# we prefer this method.[0m
+--use-energy=false   [34m# use average of log energy, not energy.[0m
+--sample-frequency=22050
+--num-mel-bins=80     [34m# similar to Google's setup.[0m
+--num-ceps=40     [34m# there is no dimensionality reduction.[0m
+--low-freq=20     [34m# low cutoff frequency for mel bins... this is high-bandwidth data, so[10;19H# there might be some information at the low end.[0m
+--high-freq=-400 [34m# high cutoff frequently, relative to Nyquist of 8000 (=7600) [0m
+[94m~                                                                                                    [13;1H~                                                                                                    [0m[14;84H1,1[10CTout[1;1H[34h[?25h[?25l[14;1H[K[14;1H:[34h[?25hq![?25l[14;1H[K[14;1H[?1l>[34h[?25h[?1049l[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/data_fr[00m$ [H[J[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/data_fr[00m$ ls
+[0m[38;5;5mam[0m  [38;5;5mconf[0m  [38;5;5mextractor[0m  [38;5;5mfilelists[0m  [38;5;5mivectors_test_hires[0m  [38;5;5mppg[0m
+[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/data_fr[00m$ cd filelists/
+[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/data_fr/filelists[00m$ ls
+[0m[38;5;5mneb_syn[0m
+[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/data_fr/filelists[00m$ cd neb_syn/
+[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/data_fr/filelists/neb_syn[00m$ ls
+spk2utt  training_set.txt  validation_set.txt  wav.scp
+[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/data_fr/filelists/neb_syn[00m$ vim wav.scp 
+[?1049h[?1h=[1;14r[23m[24m[0m[H[J[?25l[14;1H"wav.scp" 972L, 128304C[1;1Hsentence_00115_0_gen /mnt/mydrive/home/aghilas/Workspace/Experiments/KoligoPlus/data/phonetization/nee[2;1Hb_syn/sentence_00115_0_gen.wav
+sentence_00779_0_gen /mnt/mydrive/home/aghilas/Workspace/Experiments/KoligoPlus/data/phonetization/nee[4;1Hb_syn/sentence_00779_0_gen.wav
+sentence_00369_0_gen /mnt/mydrive/home/aghilas/Workspace/Experiments/KoligoPlus/data/phonetization/nee[6;1Hb_syn/sentence_00369_0_gen.wav
+sentence_00670_0_gen /mnt/mydrive/home/aghilas/Workspace/Experiments/KoligoPlus/data/phonetization/nee[8;1Hb_syn/sentence_00670_0_gen.wav
+sentence_00719_0_gen /mnt/mydrive/home/aghilas/Workspace/Experiments/KoligoPlus/data/phonetization/nee[10;1Hb_syn/sentence_00719_0_gen.wav
+sentence_00255_0_gen /mnt/mydrive/home/aghilas/Workspace/Experiments/KoligoPlus/data/phonetization/nee[12;1Hb_syn/sentence_00255_0_gen.wav
+sentence_00747_0_gen /mnt/mydrive/home/aghilas/Workspace/Experiments/KoligoPlus/data/phonetization/ne[13;1H[94m@                                                                                                    [0m[14;84H1,1[10CHaut[1;1H[34h[?25h[?25l[14;1H[K[14;1H:[34h[?25hq![?25l[14;1H[K[14;1H[?1l>[34h[?25h[?1049l[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/data_fr/filelists/neb_syn[00m$ vim spk2utt 
+[?1049h[?1h=[1;14r[23m[24m[0m[H[J[?25l[14;1H"spk2utt" [noeol] 1L, 20420C[1;1Hneb_syn sentence_00115_0_gen sentence_00779_0_gen sentence_00369_0_gen sentence_00670_0_gen sentence__[2;1H00719_0_gen sentence_00255_0_gen sentence_00747_0_gen sentence_00748_0_gen sentence_00129_0_gen sentee[3;1Hnce_00066_0_gen sentence_00641_0_gen sentence_00436_0_gen sentence_00153_0_gen sentence_00831_0_gen ss[4;1Hentence_00908_0_gen sentence_00468_0_gen sentence_00352_0_gen sentence_00146_0_gen sentence_00636_0_gg[5;1Hen sentence_00462_0_gen sentence_00044_0_gen sentence_00556_0_gen sentence_00176_0_gen sentence_009011[6;1H_0_gen sentence_00005_0_gen sentence_00195_0_gen sentence_00207_0_gen sentence_00524_0_gen sentence_00[7;1H0144_0_gen sentence_00103_0_gen sentence_00514_0_gen sentence_00017_0_gen sentence_00238_0_gen sentenn[8;1Hce_00638_0_gen sentence_00175_0_gen sentence_00430_0_gen sentence_00294_0_gen sentence_00145_0_gen see[9;1Hntence_00724_0_gen sentence_00499_0_gen sentence_00261_0_gen sentence_00964_0_gen sentence_00009_0_gee[10;1Hn sentence_00794_0_gen sentence_00196_0_gen sentence_00277_0_gen sentence_00484_0_gen sentence_00446__[11;1H0_gen sentence_00155_0_gen sentence_00317_0_gen sentence_00674_0_gen sentence_00177_0_gen sentence_000[12;1H774_0_gen sentence_00048_0_gen sentence_00200_0_gen sentence_00250_0_gen sentence_00131_0_gen sentencc[13;1He_00384_0_gen sentence_00865_0_gen sentence_00520_0_gen sentence_00230_0_gen sentence_00112_0_gen sen[14;84H1,1[10CTout[1;1H[34h[?25h[?25l[14;1H[K[14;1H:[34h[?25hq![?25l[14;1H[K[14;1H[?1l>[34h[?25h[?1049l[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/data_fr/filelists/neb_syn[00m$ [H[J[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/data_fr/filelists/neb_syn[00m$ ls
+spk2utt  training_set.txt  validation_set.txt  wav.scp
+[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/data_fr/filelists/neb_syn[00m$ cd ../../
+[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/data_fr[00m$ ls
+[0m[38;5;5mam[0m  [38;5;5mconf[0m  [38;5;5mextractor[0m  [38;5;5mfilelists[0m  [38;5;5mivectors_test_hires[0m  [38;5;5mppg[0m  [38;5;5mwav[0m
+[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/data_fr[00m$ cd ppg/
+[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/data_fr/ppg[00m$ ls
+[0m[38;5;5mneb_syn[0m
+[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/data_fr/ppg[00m$ cd neb_syn/
+[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/data_fr/ppg/neb_syn[00m$ ls
+sentence_00001_0_gen_ppg.npy  sentence_00319_0_gen_ppg.npy  sentence_00631_0_gen_ppg.npy
+sentence_00002_0_gen_ppg.npy  sentence_00320_0_gen_ppg.npy  sentence_00633_0_gen_ppg.npy
+sentence_00005_0_gen_ppg.npy  sentence_00325_0_gen_ppg.npy  sentence_00635_0_gen_ppg.npy
+sentence_00008_0_gen_ppg.npy  sentence_00329_0_gen_ppg.npy  sentence_00636_0_gen_ppg.npy
+sentence_00009_0_gen_ppg.npy  sentence_00330_0_gen_ppg.npy  sentence_00637_0_gen_ppg.npy
+sentence_00010_0_gen_ppg.npy  sentence_00333_0_gen_ppg.npy  sentence_00638_0_gen_ppg.npy
+sentence_00011_0_gen_ppg.npy  sentence_00337_0_gen_ppg.npy  sentence_00639_0_gen_ppg.npy
+sentence_00013_0_gen_ppg.npy  sentence_00340_0_gen_ppg.npy  sentence_00641_0_gen_ppg.npy
+sentence_00014_0_gen_ppg.npy  sentence_00343_0_gen_ppg.npy  sentence_00643_0_gen_ppg.npy
+sentence_00015_0_gen_ppg.npy  sentence_00344_0_gen_ppg.npy  sentence_00648_0_gen_ppg.npy
+sentence_00017_0_gen_ppg.npy  sentence_00345_0_gen_ppg.npy  sentence_00649_0_gen_ppg.npy
+sentence_00021_0_gen_ppg.npy  sentence_00347_0_gen_ppg.npy  sentence_00653_0_gen_ppg.npy
+sentence_00031_0_gen_ppg.npy  sentence_00349_0_gen_ppg.npy  sentence_00657_0_gen_ppg.npy
+sentence_00032_0_gen_ppg.npy  sentence_00352_0_gen_ppg.npy  sentence_00661_0_gen_ppg.npy
+sentence_00035_0_gen_ppg.npy  sentence_00353_0_gen_ppg.npy  sentence_00663_0_gen_ppg.npy
+sentence_00036_0_gen_ppg.npy  sentence_00354_0_gen_ppg.npy  sentence_00664_0_gen_ppg.npy
+sentence_00037_0_gen_ppg.npy  sentence_00355_0_gen_ppg.npy  sentence_00665_0_gen_ppg.npy
+sentence_00039_0_gen_ppg.npy  sentence_00358_0_gen_ppg.npy  sentence_00666_0_gen_ppg.npy
+sentence_00040_0_gen_ppg.npy  sentence_00359_0_gen_ppg.npy  sentence_00668_0_gen_ppg.npy
+sentence_00044_0_gen_ppg.npy  sentence_00362_0_gen_ppg.npy  sentence_00669_0_gen_ppg.npy
+sentence_00045_0_gen_ppg.npy  sentence_00368_0_gen_ppg.npy  sentence_00670_0_gen_ppg.npy
+sentence_00046_0_gen_ppg.npy  sentence_00369_0_gen_ppg.npy  sentence_00674_0_gen_ppg.npy
+sentence_00047_0_gen_ppg.npy  sentence_00370_0_gen_ppg.npy  sentence_00675_0_gen_ppg.npy
+sentence_00048_0_gen_ppg.npy  sentence_00373_0_gen_ppg.npy  sentence_00678_0_gen_ppg.npy
+sentence_00049_0_gen_ppg.npy  sentence_00377_0_gen_ppg.npy  sentence_00679_0_gen_ppg.npy
+sentence_00052_0_gen_ppg.npy  sentence_00379_0_gen_ppg.npy  sentence_00682_0_gen_ppg.npy
+sentence_00059_0_gen_ppg.npy  sentence_00382_0_gen_ppg.npy  sentence_00687_0_gen_ppg.npy
+sentence_00060_0_gen_ppg.npy  sentence_00383_0_gen_ppg.npy  sentence_00691_0_gen_ppg.npy
+sentence_00061_0_gen_ppg.npy  sentence_00384_0_gen_ppg.npy  sentence_00694_0_gen_ppg.npy
+sentence_00062_0_gen_ppg.npy  sentence_00386_0_gen_ppg.npy  sentence_00699_0_gen_ppg.npy
+sentence_00063_0_gen_ppg.npy  sentence_00394_0_gen_ppg.npy  sentence_00703_0_gen_ppg.npy
+sentence_00065_0_gen_ppg.npy  sentence_00396_0_gen_ppg.npy  sentence_00704_0_gen_ppg.npy
+sentence_00066_0_gen_ppg.npy  sentence_00399_0_gen_ppg.npy  sentence_00705_0_gen_ppg.npy
+sentence_00068_0_gen_ppg.npy  sentence_00402_0_gen_ppg.npy  sentence_00706_0_gen_ppg.npy
+sentence_00072_0_gen_ppg.npy  sentence_00405_0_gen_ppg.npy  sentence_00710_0_gen_ppg.npy
+sentence_00074_0_gen_ppg.npy  sentence_00406_0_gen_ppg.npy  sentence_00714_0_gen_ppg.npy
+sentence_00077_0_gen_ppg.npy  sentence_00414_0_gen_ppg.npy  sentence_00717_0_gen_ppg.npy
+sentence_00080_0_gen_ppg.npy  sentence_00416_0_gen_ppg.npy  sentence_00719_0_gen_ppg.npy
+sentence_00081_0_gen_ppg.npy  sentence_00420_0_gen_ppg.npy  sentence_00720_0_gen_ppg.npy
+sentence_00082_0_gen_ppg.npy  sentence_00425_0_gen_ppg.npy  sentence_00723_0_gen_ppg.npy
+sentence_00085_0_gen_ppg.npy  sentence_00426_0_gen_ppg.npy  sentence_00724_0_gen_ppg.npy
+sentence_00086_0_gen_ppg.npy  sentence_00427_0_gen_ppg.npy  sentence_00726_0_gen_ppg.npy
+sentence_00087_0_gen_ppg.npy  sentence_00429_0_gen_ppg.npy  sentence_00727_0_gen_ppg.npy
+sentence_00089_0_gen_ppg.npy  sentence_00430_0_gen_ppg.npy  sentence_00729_0_gen_ppg.npy
+sentence_00095_0_gen_ppg.npy  sentence_00431_0_gen_ppg.npy  sentence_00735_0_gen_ppg.npy
+sentence_00102_0_gen_ppg.npy  sentence_00434_0_gen_ppg.npy  sentence_00739_0_gen_ppg.npy
+sentence_00103_0_gen_ppg.npy  sentence_00436_0_gen_ppg.npy  sentence_00740_0_gen_ppg.npy
+sentence_00104_0_gen_ppg.npy  sentence_00437_0_gen_ppg.npy  sentence_00741_0_gen_ppg.npy
+sentence_00112_0_gen_ppg.npy  sentence_00439_0_gen_ppg.npy  sentence_00742_0_gen_ppg.npy
+sentence_00114_0_gen_ppg.npy  sentence_00440_0_gen_ppg.npy  sentence_00747_0_gen_ppg.npy
+sentence_00115_0_gen_ppg.npy  sentence_00441_0_gen_ppg.npy  sentence_00748_0_gen_ppg.npy
+sentence_00118_0_gen_ppg.npy  sentence_00444_0_gen_ppg.npy  sentence_00753_0_gen_ppg.npy
+sentence_00125_0_gen_ppg.npy  sentence_00445_0_gen_ppg.npy  sentence_00756_0_gen_ppg.npy
+sentence_00128_0_gen_ppg.npy  sentence_00446_0_gen_ppg.npy  sentence_00760_0_gen_ppg.npy
+sentence_00129_0_gen_ppg.npy  sentence_00453_0_gen_ppg.npy  sentence_00762_0_gen_ppg.npy
+sentence_00131_0_gen_ppg.npy  sentence_00456_0_gen_ppg.npy  sentence_00763_0_gen_ppg.npy
+sentence_00136_0_gen_ppg.npy  sentence_00458_0_gen_ppg.npy  sentence_00769_0_gen_ppg.npy
+sentence_00139_0_gen_ppg.npy  sentence_00462_0_gen_ppg.npy  sentence_00774_0_gen_ppg.npy
+sentence_00144_0_gen_ppg.npy  sentence_00464_0_gen_ppg.npy  sentence_00777_0_gen_ppg.npy
+sentence_00145_0_gen_ppg.npy  sentence_00467_0_gen_ppg.npy  sentence_00779_0_gen_ppg.npy
+sentence_00146_0_gen_ppg.npy  sentence_00468_0_gen_ppg.npy  sentence_00781_0_gen_ppg.npy
+sentence_00147_0_gen_ppg.npy  sentence_00471_0_gen_ppg.npy  sentence_00788_0_gen_ppg.npy
+sentence_00148_0_gen_ppg.npy  sentence_00472_0_gen_ppg.npy  sentence_00789_0_gen_ppg.npy
+sentence_00151_0_gen_ppg.npy  sentence_00474_0_gen_ppg.npy  sentence_00792_0_gen_ppg.npy
+sentence_00153_0_gen_ppg.npy  sentence_00475_0_gen_ppg.npy  sentence_00794_0_gen_ppg.npy
+sentence_00155_0_gen_ppg.npy  sentence_00476_0_gen_ppg.npy  sentence_00795_0_gen_ppg.npy
+sentence_00160_0_gen_ppg.npy  sentence_00479_0_gen_ppg.npy  sentence_00797_0_gen_ppg.npy
+sentence_00162_0_gen_ppg.npy  sentence_00482_0_gen_ppg.npy  sentence_00801_0_gen_ppg.npy
+sentence_00164_0_gen_ppg.npy  sentence_00483_0_gen_ppg.npy  sentence_00804_0_gen_ppg.npy
+sentence_00165_0_gen_ppg.npy  sentence_00484_0_gen_ppg.npy  sentence_00805_0_gen_ppg.npy
+sentence_00169_0_gen_ppg.npy  sentence_00492_0_gen_ppg.npy  sentence_00806_0_gen_ppg.npy
+sentence_00175_0_gen_ppg.npy  sentence_00493_0_gen_ppg.npy  sentence_00809_0_gen_ppg.npy
+sentence_00176_0_gen_ppg.npy  sentence_00494_0_gen_ppg.npy  sentence_00810_0_gen_ppg.npy
+sentence_00177_0_gen_ppg.npy  sentence_00497_0_gen_ppg.npy  sentence_00814_0_gen_ppg.npy
+sentence_00178_0_gen_ppg.npy  sentence_00499_0_gen_ppg.npy  sentence_00821_0_gen_ppg.npy
+sentence_00183_0_gen_ppg.npy  sentence_00500_0_gen_ppg.npy  sentence_00825_0_gen_ppg.npy
+sentence_00184_0_gen_ppg.npy  sentence_00501_0_gen_ppg.npy  sentence_00826_0_gen_ppg.npy
+sentence_00190_0_gen_ppg.npy  sentence_00506_0_gen_ppg.npy  sentence_00831_0_gen_ppg.npy
+sentence_00194_0_gen_ppg.npy  sentence_00507_0_gen_ppg.npy  sentence_00840_0_gen_ppg.npy
+sentence_00195_0_gen_ppg.npy  sentence_00509_0_gen_ppg.npy  sentence_00846_0_gen_ppg.npy
+sentence_00196_0_gen_ppg.npy  sentence_00510_0_gen_ppg.npy  sentence_00849_0_gen_ppg.npy
+sentence_00198_0_gen_ppg.npy  sentence_00512_0_gen_ppg.npy  sentence_00850_0_gen_ppg.npy
+sentence_00199_0_gen_ppg.npy  sentence_00513_0_gen_ppg.npy  sentence_00853_0_gen_ppg.npy
+sentence_00200_0_gen_ppg.npy  sentence_00514_0_gen_ppg.npy  sentence_00856_0_gen_ppg.npy
+sentence_00202_0_gen_ppg.npy  sentence_00515_0_gen_ppg.npy  sentence_00857_0_gen_ppg.npy
+sentence_00204_0_gen_ppg.npy  sentence_00517_0_gen_ppg.npy  sentence_00858_0_gen_ppg.npy
+sentence_00206_0_gen_ppg.npy  sentence_00519_0_gen_ppg.npy  sentence_00860_0_gen_ppg.npy
+sentence_00207_0_gen_ppg.npy  sentence_00520_0_gen_ppg.npy  sentence_00865_0_gen_ppg.npy
+sentence_00210_0_gen_ppg.npy  sentence_00522_0_gen_ppg.npy  sentence_00868_0_gen_ppg.npy
+sentence_00211_0_gen_ppg.npy  sentence_00524_0_gen_ppg.npy  sentence_00869_0_gen_ppg.npy
+sentence_00213_0_gen_ppg.npy  sentence_00525_0_gen_ppg.npy  sentence_00872_0_gen_ppg.npy
+sentence_00214_0_gen_ppg.npy  sentence_00526_0_gen_ppg.npy  sentence_00874_0_gen_ppg.npy
+sentence_00216_0_gen_ppg.npy  sentence_00529_0_gen_ppg.npy  sentence_00875_0_gen_ppg.npy
+sentence_00219_0_gen_ppg.npy  sentence_00530_0_gen_ppg.npy  sentence_00876_0_gen_ppg.npy
+sentence_00220_0_gen_ppg.npy  sentence_00532_0_gen_ppg.npy  sentence_00878_0_gen_ppg.npy
+sentence_00222_0_gen_ppg.npy  sentence_00534_0_gen_ppg.npy  sentence_00883_0_gen_ppg.npy
+sentence_00224_0_gen_ppg.npy  sentence_00538_0_gen_ppg.npy  sentence_00884_0_gen_ppg.npy
+sentence_00229_0_gen_ppg.npy  sentence_00540_0_gen_ppg.npy  sentence_00887_0_gen_ppg.npy
+sentence_00230_0_gen_ppg.npy  sentence_00544_0_gen_ppg.npy  sentence_00890_0_gen_ppg.npy
+sentence_00233_0_gen_ppg.npy  sentence_00547_0_gen_ppg.npy  sentence_00892_0_gen_ppg.npy
+sentence_00237_0_gen_ppg.npy  sentence_00549_0_gen_ppg.npy  sentence_00894_0_gen_ppg.npy
+sentence_00238_0_gen_ppg.npy  sentence_00550_0_gen_ppg.npy  sentence_00899_0_gen_ppg.npy
+sentence_00240_0_gen_ppg.npy  sentence_00551_0_gen_ppg.npy  sentence_00901_0_gen_ppg.npy
+sentence_00245_0_gen_ppg.npy  sentence_00552_0_gen_ppg.npy  sentence_00902_0_gen_ppg.npy
+sentence_00247_0_gen_ppg.npy  sentence_00553_0_gen_ppg.npy  sentence_00903_0_gen_ppg.npy
+sentence_00250_0_gen_ppg.npy  sentence_00554_0_gen_ppg.npy  sentence_00908_0_gen_ppg.npy
+sentence_00255_0_gen_ppg.npy  sentence_00556_0_gen_ppg.npy  sentence_00913_0_gen_ppg.npy
+sentence_00256_0_gen_ppg.npy  sentence_00557_0_gen_ppg.npy  sentence_00914_0_gen_ppg.npy
+sentence_00260_0_gen_ppg.npy  sentence_00559_0_gen_ppg.npy  sentence_00915_0_gen_ppg.npy
+sentence_00261_0_gen_ppg.npy  sentence_00561_0_gen_ppg.npy  sentence_00916_0_gen_ppg.npy
+sentence_00264_0_gen_ppg.npy  sentence_00562_0_gen_ppg.npy  sentence_00920_0_gen_ppg.npy
+sentence_00266_0_gen_ppg.npy  sentence_00563_0_gen_ppg.npy  sentence_00921_0_gen_ppg.npy
+sentence_00268_0_gen_ppg.npy  sentence_00565_0_gen_ppg.npy  sentence_00922_0_gen_ppg.npy
+sentence_00270_0_gen_ppg.npy  sentence_00567_0_gen_ppg.npy  sentence_00924_0_gen_ppg.npy
+sentence_00274_0_gen_ppg.npy  sentence_00571_0_gen_ppg.npy  sentence_00928_0_gen_ppg.npy
+sentence_00276_0_gen_ppg.npy  sentence_00573_0_gen_ppg.npy  sentence_00930_0_gen_ppg.npy
+sentence_00277_0_gen_ppg.npy  sentence_00576_0_gen_ppg.npy  sentence_00931_0_gen_ppg.npy
+sentence_00278_0_gen_ppg.npy  sentence_00578_0_gen_ppg.npy  sentence_00932_0_gen_ppg.npy
+sentence_00280_0_gen_ppg.npy  sentence_00579_0_gen_ppg.npy  sentence_00934_0_gen_ppg.npy
+sentence_00281_0_gen_ppg.npy  sentence_00584_0_gen_ppg.npy  sentence_00935_0_gen_ppg.npy
+sentence_00284_0_gen_ppg.npy  sentence_00589_0_gen_ppg.npy  sentence_00937_0_gen_ppg.npy
+sentence_00285_0_gen_ppg.npy  sentence_00596_0_gen_ppg.npy  sentence_00939_0_gen_ppg.npy
+sentence_00286_0_gen_ppg.npy  sentence_00602_0_gen_ppg.npy  sentence_00940_0_gen_ppg.npy
+sentence_00289_0_gen_ppg.npy  sentence_00603_0_gen_ppg.npy  sentence_00945_0_gen_ppg.npy
+sentence_00290_0_gen_ppg.npy  sentence_00606_0_gen_ppg.npy  sentence_00946_0_gen_ppg.npy
+sentence_00292_0_gen_ppg.npy  sentence_00607_0_gen_ppg.npy  sentence_00947_0_gen_ppg.npy
+sentence_00294_0_gen_ppg.npy  sentence_00609_0_gen_ppg.npy  sentence_00948_0_gen_ppg.npy
+sentence_00295_0_gen_ppg.npy  sentence_00610_0_gen_ppg.npy  sentence_00950_0_gen_ppg.npy
+sentence_00298_0_gen_ppg.npy  sentence_00611_0_gen_ppg.npy  sentence_00951_0_gen_ppg.npy
+sentence_00300_0_gen_ppg.npy  sentence_00612_0_gen_ppg.npy  sentence_00953_0_gen_ppg.npy
+sentence_00302_0_gen_ppg.npy  sentence_00616_0_gen_ppg.npy  sentence_00954_0_gen_ppg.npy
+sentence_00308_0_gen_ppg.npy  sentence_00621_0_gen_ppg.npy  sentence_00957_0_gen_ppg.npy
+sentence_00310_0_gen_ppg.npy  sentence_00622_0_gen_ppg.npy  sentence_00959_0_gen_ppg.npy
+sentence_00312_0_gen_ppg.npy  sentence_00626_0_gen_ppg.npy  sentence_00964_0_gen_ppg.npy
+sentence_00314_0_gen_ppg.npy  sentence_00627_0_gen_ppg.npy  sentence_00967_0_gen_ppg.npy
+sentence_00315_0_gen_ppg.npy  sentence_00629_0_gen_ppg.npy
+sentence_00317_0_gen_ppg.npy  sentence_00630_0_gen_ppg.npy
+[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/data_fr/ppg/neb_syn[00m$ [H[J[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/data_fr/ppg/neb_syn[00m$ ls
+sentence_00001_0_gen_ppg.npy  sentence_00319_0_gen_ppg.npy  sentence_00630_0_gen_ppg.npy
+sentence_00002_0_gen_ppg.npy  sentence_00320_0_gen_ppg.npy  sentence_00631_0_gen_ppg.npy
+sentence_00005_0_gen_ppg.npy  sentence_00325_0_gen_ppg.npy  sentence_00633_0_gen_ppg.npy
+sentence_00008_0_gen_ppg.npy  sentence_00329_0_gen_ppg.npy  sentence_00635_0_gen_ppg.npy
+sentence_00009_0_gen_ppg.npy  sentence_00330_0_gen_ppg.npy  sentence_00636_0_gen_ppg.npy
+sentence_00010_0_gen_ppg.npy  sentence_00333_0_gen_ppg.npy  sentence_00637_0_gen_ppg.npy
+sentence_00011_0_gen_ppg.npy  sentence_00337_0_gen_ppg.npy  sentence_00638_0_gen_ppg.npy
+sentence_00013_0_gen_ppg.npy  sentence_00340_0_gen_ppg.npy  sentence_00639_0_gen_ppg.npy
+sentence_00014_0_gen_ppg.npy  sentence_00343_0_gen_ppg.npy  sentence_00641_0_gen_ppg.npy
+sentence_00015_0_gen_ppg.npy  sentence_00344_0_gen_ppg.npy  sentence_00643_0_gen_ppg.npy
+sentence_00017_0_gen_ppg.npy  sentence_00345_0_gen_ppg.npy  sentence_00648_0_gen_ppg.npy
+sentence_00021_0_gen_ppg.npy  sentence_00347_0_gen_ppg.npy  sentence_00649_0_gen_ppg.npy
+sentence_00031_0_gen_ppg.npy  sentence_00349_0_gen_ppg.npy  sentence_00653_0_gen_ppg.npy
+sentence_00032_0_gen_ppg.npy  sentence_00352_0_gen_ppg.npy  sentence_00657_0_gen_ppg.npy
+sentence_00035_0_gen_ppg.npy  sentence_00353_0_gen_ppg.npy  sentence_00661_0_gen_ppg.npy
+sentence_00036_0_gen_ppg.npy  sentence_00354_0_gen_ppg.npy  sentence_00663_0_gen_ppg.npy
+sentence_00037_0_gen_ppg.npy  sentence_00355_0_gen_ppg.npy  sentence_00664_0_gen_ppg.npy
+sentence_00039_0_gen_ppg.npy  sentence_00358_0_gen_ppg.npy  sentence_00665_0_gen_ppg.npy
+sentence_00040_0_gen_ppg.npy  sentence_00359_0_gen_ppg.npy  sentence_00666_0_gen_ppg.npy
+sentence_00044_0_gen_ppg.npy  sentence_00362_0_gen_ppg.npy  sentence_00668_0_gen_ppg.npy
+sentence_00045_0_gen_ppg.npy  sentence_00368_0_gen_ppg.npy  sentence_00669_0_gen_ppg.npy
+sentence_00046_0_gen_ppg.npy  sentence_00369_0_gen_ppg.npy  sentence_00670_0_gen_ppg.npy
+sentence_00047_0_gen_ppg.npy  sentence_00370_0_gen_ppg.npy  sentence_00674_0_gen_ppg.npy
+sentence_00048_0_gen_ppg.npy  sentence_00372_0_gen_ppg.npy  sentence_00675_0_gen_ppg.npy
+sentence_00049_0_gen_ppg.npy  sentence_00373_0_gen_ppg.npy  sentence_00678_0_gen_ppg.npy
+sentence_00052_0_gen_ppg.npy  sentence_00377_0_gen_ppg.npy  sentence_00679_0_gen_ppg.npy
+sentence_00059_0_gen_ppg.npy  sentence_00379_0_gen_ppg.npy  sentence_00682_0_gen_ppg.npy
+sentence_00060_0_gen_ppg.npy  sentence_00382_0_gen_ppg.npy  sentence_00687_0_gen_ppg.npy
+sentence_00061_0_gen_ppg.npy  sentence_00383_0_gen_ppg.npy  sentence_00691_0_gen_ppg.npy
+sentence_00062_0_gen_ppg.npy  sentence_00384_0_gen_ppg.npy  sentence_00694_0_gen_ppg.npy
+sentence_00063_0_gen_ppg.npy  sentence_00386_0_gen_ppg.npy  sentence_00699_0_gen_ppg.npy
+sentence_00065_0_gen_ppg.npy  sentence_00394_0_gen_ppg.npy  sentence_00703_0_gen_ppg.npy
+sentence_00066_0_gen_ppg.npy  sentence_00396_0_gen_ppg.npy  sentence_00704_0_gen_ppg.npy
+sentence_00068_0_gen_ppg.npy  sentence_00397_0_gen_ppg.npy  sentence_00705_0_gen_ppg.npy
+sentence_00072_0_gen_ppg.npy  sentence_00399_0_gen_ppg.npy  sentence_00706_0_gen_ppg.npy
+sentence_00074_0_gen_ppg.npy  sentence_00402_0_gen_ppg.npy  sentence_00710_0_gen_ppg.npy
+sentence_00077_0_gen_ppg.npy  sentence_00405_0_gen_ppg.npy  sentence_00714_0_gen_ppg.npy
+sentence_00080_0_gen_ppg.npy  sentence_00406_0_gen_ppg.npy  sentence_00717_0_gen_ppg.npy
+sentence_00081_0_gen_ppg.npy  sentence_00414_0_gen_ppg.npy  sentence_00719_0_gen_ppg.npy
+sentence_00082_0_gen_ppg.npy  sentence_00416_0_gen_ppg.npy  sentence_00720_0_gen_ppg.npy
+sentence_00085_0_gen_ppg.npy  sentence_00420_0_gen_ppg.npy  sentence_00723_0_gen_ppg.npy
+sentence_00086_0_gen_ppg.npy  sentence_00425_0_gen_ppg.npy  sentence_00724_0_gen_ppg.npy
+sentence_00087_0_gen_ppg.npy  sentence_00426_0_gen_ppg.npy  sentence_00726_0_gen_ppg.npy
+sentence_00089_0_gen_ppg.npy  sentence_00427_0_gen_ppg.npy  sentence_00727_0_gen_ppg.npy
+sentence_00095_0_gen_ppg.npy  sentence_00429_0_gen_ppg.npy  sentence_00729_0_gen_ppg.npy
+sentence_00102_0_gen_ppg.npy  sentence_00430_0_gen_ppg.npy  sentence_00735_0_gen_ppg.npy
+sentence_00103_0_gen_ppg.npy  sentence_00431_0_gen_ppg.npy  sentence_00739_0_gen_ppg.npy
+sentence_00104_0_gen_ppg.npy  sentence_00434_0_gen_ppg.npy  sentence_00740_0_gen_ppg.npy
+sentence_00110_0_gen_ppg.npy  sentence_00436_0_gen_ppg.npy  sentence_00741_0_gen_ppg.npy
+sentence_00112_0_gen_ppg.npy  sentence_00437_0_gen_ppg.npy  sentence_00742_0_gen_ppg.npy
+sentence_00114_0_gen_ppg.npy  sentence_00439_0_gen_ppg.npy  sentence_00747_0_gen_ppg.npy
+sentence_00115_0_gen_ppg.npy  sentence_00440_0_gen_ppg.npy  sentence_00748_0_gen_ppg.npy
+sentence_00118_0_gen_ppg.npy  sentence_00441_0_gen_ppg.npy  sentence_00753_0_gen_ppg.npy
+sentence_00125_0_gen_ppg.npy  sentence_00444_0_gen_ppg.npy  sentence_00756_0_gen_ppg.npy
+sentence_00128_0_gen_ppg.npy  sentence_00445_0_gen_ppg.npy  sentence_00760_0_gen_ppg.npy
+sentence_00129_0_gen_ppg.npy  sentence_00446_0_gen_ppg.npy  sentence_00762_0_gen_ppg.npy
+sentence_00131_0_gen_ppg.npy  sentence_00453_0_gen_ppg.npy  sentence_00763_0_gen_ppg.npy
+sentence_00136_0_gen_ppg.npy  sentence_00456_0_gen_ppg.npy  sentence_00769_0_gen_ppg.npy
+sentence_00139_0_gen_ppg.npy  sentence_00458_0_gen_ppg.npy  sentence_00774_0_gen_ppg.npy
+sentence_00144_0_gen_ppg.npy  sentence_00462_0_gen_ppg.npy  sentence_00777_0_gen_ppg.npy
+sentence_00145_0_gen_ppg.npy  sentence_00464_0_gen_ppg.npy  sentence_00779_0_gen_ppg.npy
+sentence_00146_0_gen_ppg.npy  sentence_00467_0_gen_ppg.npy  sentence_00781_0_gen_ppg.npy
+sentence_00147_0_gen_ppg.npy  sentence_00468_0_gen_ppg.npy  sentence_00788_0_gen_ppg.npy
+sentence_00148_0_gen_ppg.npy  sentence_00471_0_gen_ppg.npy  sentence_00789_0_gen_ppg.npy
+sentence_00151_0_gen_ppg.npy  sentence_00472_0_gen_ppg.npy  sentence_00792_0_gen_ppg.npy
+sentence_00153_0_gen_ppg.npy  sentence_00474_0_gen_ppg.npy  sentence_00794_0_gen_ppg.npy
+sentence_00155_0_gen_ppg.npy  sentence_00475_0_gen_ppg.npy  sentence_00795_0_gen_ppg.npy
+sentence_00160_0_gen_ppg.npy  sentence_00476_0_gen_ppg.npy  sentence_00797_0_gen_ppg.npy
+sentence_00162_0_gen_ppg.npy  sentence_00479_0_gen_ppg.npy  sentence_00801_0_gen_ppg.npy
+sentence_00164_0_gen_ppg.npy  sentence_00482_0_gen_ppg.npy  sentence_00804_0_gen_ppg.npy
+sentence_00165_0_gen_ppg.npy  sentence_00483_0_gen_ppg.npy  sentence_00805_0_gen_ppg.npy
+sentence_00169_0_gen_ppg.npy  sentence_00484_0_gen_ppg.npy  sentence_00806_0_gen_ppg.npy
+sentence_00175_0_gen_ppg.npy  sentence_00492_0_gen_ppg.npy  sentence_00809_0_gen_ppg.npy
+sentence_00176_0_gen_ppg.npy  sentence_00493_0_gen_ppg.npy  sentence_00810_0_gen_ppg.npy
+sentence_00177_0_gen_ppg.npy  sentence_00494_0_gen_ppg.npy  sentence_00814_0_gen_ppg.npy
+sentence_00178_0_gen_ppg.npy  sentence_00497_0_gen_ppg.npy  sentence_00821_0_gen_ppg.npy
+sentence_00183_0_gen_ppg.npy  sentence_00499_0_gen_ppg.npy  sentence_00825_0_gen_ppg.npy
+sentence_00184_0_gen_ppg.npy  sentence_00500_0_gen_ppg.npy  sentence_00826_0_gen_ppg.npy
+sentence_00190_0_gen_ppg.npy  sentence_00501_0_gen_ppg.npy  sentence_00831_0_gen_ppg.npy
+sentence_00194_0_gen_ppg.npy  sentence_00506_0_gen_ppg.npy  sentence_00840_0_gen_ppg.npy
+sentence_00195_0_gen_ppg.npy  sentence_00507_0_gen_ppg.npy  sentence_00846_0_gen_ppg.npy
+sentence_00196_0_gen_ppg.npy  sentence_00509_0_gen_ppg.npy  sentence_00849_0_gen_ppg.npy
+sentence_00198_0_gen_ppg.npy  sentence_00510_0_gen_ppg.npy  sentence_00850_0_gen_ppg.npy
+sentence_00199_0_gen_ppg.npy  sentence_00512_0_gen_ppg.npy  sentence_00853_0_gen_ppg.npy
+sentence_00200_0_gen_ppg.npy  sentence_00513_0_gen_ppg.npy  sentence_00856_0_gen_ppg.npy
+sentence_00202_0_gen_ppg.npy  sentence_00514_0_gen_ppg.npy  sentence_00857_0_gen_ppg.npy
+sentence_00204_0_gen_ppg.npy  sentence_00515_0_gen_ppg.npy  sentence_00858_0_gen_ppg.npy
+sentence_00206_0_gen_ppg.npy  sentence_00517_0_gen_ppg.npy  sentence_00860_0_gen_ppg.npy
+sentence_00207_0_gen_ppg.npy  sentence_00519_0_gen_ppg.npy  sentence_00865_0_gen_ppg.npy
+sentence_00210_0_gen_ppg.npy  sentence_00520_0_gen_ppg.npy  sentence_00868_0_gen_ppg.npy
+sentence_00211_0_gen_ppg.npy  sentence_00522_0_gen_ppg.npy  sentence_00869_0_gen_ppg.npy
+sentence_00213_0_gen_ppg.npy  sentence_00524_0_gen_ppg.npy  sentence_00872_0_gen_ppg.npy
+sentence_00214_0_gen_ppg.npy  sentence_00525_0_gen_ppg.npy  sentence_00874_0_gen_ppg.npy
+sentence_00216_0_gen_ppg.npy  sentence_00526_0_gen_ppg.npy  sentence_00875_0_gen_ppg.npy
+sentence_00219_0_gen_ppg.npy  sentence_00529_0_gen_ppg.npy  sentence_00876_0_gen_ppg.npy
+sentence_00220_0_gen_ppg.npy  sentence_00530_0_gen_ppg.npy  sentence_00878_0_gen_ppg.npy
+sentence_00222_0_gen_ppg.npy  sentence_00532_0_gen_ppg.npy  sentence_00883_0_gen_ppg.npy
+sentence_00224_0_gen_ppg.npy  sentence_00534_0_gen_ppg.npy  sentence_00884_0_gen_ppg.npy
+sentence_00229_0_gen_ppg.npy  sentence_00538_0_gen_ppg.npy  sentence_00887_0_gen_ppg.npy
+sentence_00230_0_gen_ppg.npy  sentence_00540_0_gen_ppg.npy  sentence_00890_0_gen_ppg.npy
+sentence_00233_0_gen_ppg.npy  sentence_00544_0_gen_ppg.npy  sentence_00892_0_gen_ppg.npy
+sentence_00237_0_gen_ppg.npy  sentence_00547_0_gen_ppg.npy  sentence_00894_0_gen_ppg.npy
+sentence_00238_0_gen_ppg.npy  sentence_00549_0_gen_ppg.npy  sentence_00899_0_gen_ppg.npy
+sentence_00240_0_gen_ppg.npy  sentence_00550_0_gen_ppg.npy  sentence_00901_0_gen_ppg.npy
+sentence_00245_0_gen_ppg.npy  sentence_00551_0_gen_ppg.npy  sentence_00902_0_gen_ppg.npy
+sentence_00247_0_gen_ppg.npy  sentence_00552_0_gen_ppg.npy  sentence_00903_0_gen_ppg.npy
+sentence_00250_0_gen_ppg.npy  sentence_00553_0_gen_ppg.npy  sentence_00908_0_gen_ppg.npy
+sentence_00255_0_gen_ppg.npy  sentence_00554_0_gen_ppg.npy  sentence_00913_0_gen_ppg.npy
+sentence_00256_0_gen_ppg.npy  sentence_00556_0_gen_ppg.npy  sentence_00914_0_gen_ppg.npy
+sentence_00260_0_gen_ppg.npy  sentence_00557_0_gen_ppg.npy  sentence_00915_0_gen_ppg.npy
+sentence_00261_0_gen_ppg.npy  sentence_00559_0_gen_ppg.npy  sentence_00916_0_gen_ppg.npy
+sentence_00264_0_gen_ppg.npy  sentence_00561_0_gen_ppg.npy  sentence_00920_0_gen_ppg.npy
+sentence_00266_0_gen_ppg.npy  sentence_00562_0_gen_ppg.npy  sentence_00921_0_gen_ppg.npy
+sentence_00268_0_gen_ppg.npy  sentence_00563_0_gen_ppg.npy  sentence_00922_0_gen_ppg.npy
+sentence_00270_0_gen_ppg.npy  sentence_00565_0_gen_ppg.npy  sentence_00924_0_gen_ppg.npy
+sentence_00274_0_gen_ppg.npy  sentence_00567_0_gen_ppg.npy  sentence_00928_0_gen_ppg.npy
+sentence_00276_0_gen_ppg.npy  sentence_00571_0_gen_ppg.npy  sentence_00930_0_gen_ppg.npy
+sentence_00277_0_gen_ppg.npy  sentence_00573_0_gen_ppg.npy  sentence_00931_0_gen_ppg.npy
+sentence_00278_0_gen_ppg.npy  sentence_00576_0_gen_ppg.npy  sentence_00932_0_gen_ppg.npy
+sentence_00280_0_gen_ppg.npy  sentence_00578_0_gen_ppg.npy  sentence_00934_0_gen_ppg.npy
+sentence_00281_0_gen_ppg.npy  sentence_00579_0_gen_ppg.npy  sentence_00935_0_gen_ppg.npy
+sentence_00284_0_gen_ppg.npy  sentence_00584_0_gen_ppg.npy  sentence_00937_0_gen_ppg.npy
+sentence_00285_0_gen_ppg.npy  sentence_00589_0_gen_ppg.npy  sentence_00939_0_gen_ppg.npy
+sentence_00286_0_gen_ppg.npy  sentence_00596_0_gen_ppg.npy  sentence_00940_0_gen_ppg.npy
+sentence_00289_0_gen_ppg.npy  sentence_00602_0_gen_ppg.npy  sentence_00945_0_gen_ppg.npy
+sentence_00290_0_gen_ppg.npy  sentence_00603_0_gen_ppg.npy  sentence_00946_0_gen_ppg.npy
+sentence_00292_0_gen_ppg.npy  sentence_00606_0_gen_ppg.npy  sentence_00947_0_gen_ppg.npy
+sentence_00294_0_gen_ppg.npy  sentence_00607_0_gen_ppg.npy  sentence_00948_0_gen_ppg.npy
+sentence_00295_0_gen_ppg.npy  sentence_00609_0_gen_ppg.npy  sentence_00950_0_gen_ppg.npy
+sentence_00298_0_gen_ppg.npy  sentence_00610_0_gen_ppg.npy  sentence_00951_0_gen_ppg.npy
+sentence_00300_0_gen_ppg.npy  sentence_00611_0_gen_ppg.npy  sentence_00953_0_gen_ppg.npy
+sentence_00302_0_gen_ppg.npy  sentence_00612_0_gen_ppg.npy  sentence_00954_0_gen_ppg.npy
+sentence_00308_0_gen_ppg.npy  sentence_00616_0_gen_ppg.npy  sentence_00957_0_gen_ppg.npy
+sentence_00310_0_gen_ppg.npy  sentence_00621_0_gen_ppg.npy  sentence_00959_0_gen_ppg.npy
+sentence_00312_0_gen_ppg.npy  sentence_00622_0_gen_ppg.npy  sentence_00964_0_gen_ppg.npy
+sentence_00314_0_gen_ppg.npy  sentence_00626_0_gen_ppg.npy  sentence_00967_0_gen_ppg.npy
+sentence_00315_0_gen_ppg.npy  sentence_00627_0_gen_ppg.npy
+sentence_00317_0_gen_ppg.npy  sentence_00629_0_gen_ppg.npy
+[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/data_fr/ppg/neb_syn[00m$ pwd
+/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/data_fr/ppg/neb_syn
+[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/data_fr/ppg/neb_syn[00m$ [H[J[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/data_fr/ppg/neb_syn[00m$ ls
+sentence_00000_0_gen_ppg.npy  sentence_00324_0_gen_ppg.npy  sentence_00648_0_gen_ppg.npy
+sentence_00001_0_gen_ppg.npy  sentence_00325_0_gen_ppg.npy  sentence_00649_0_gen_ppg.npy
+sentence_00002_0_gen_ppg.npy  sentence_00326_0_gen_ppg.npy  sentence_00650_0_gen_ppg.npy
+sentence_00003_0_gen_ppg.npy  sentence_00327_0_gen_ppg.npy  sentence_00651_0_gen_ppg.npy
+sentence_00004_0_gen_ppg.npy  sentence_00328_0_gen_ppg.npy  sentence_00652_0_gen_ppg.npy
+sentence_00005_0_gen_ppg.npy  sentence_00329_0_gen_ppg.npy  sentence_00653_0_gen_ppg.npy
+sentence_00006_0_gen_ppg.npy  sentence_00330_0_gen_ppg.npy  sentence_00654_0_gen_ppg.npy
+sentence_00007_0_gen_ppg.npy  sentence_00331_0_gen_ppg.npy  sentence_00655_0_gen_ppg.npy
+sentence_00008_0_gen_ppg.npy  sentence_00332_0_gen_ppg.npy  sentence_00656_0_gen_ppg.npy
+sentence_00009_0_gen_ppg.npy  sentence_00333_0_gen_ppg.npy  sentence_00657_0_gen_ppg.npy
+sentence_00010_0_gen_ppg.npy  sentence_00334_0_gen_ppg.npy  sentence_00658_0_gen_ppg.npy
+sentence_00011_0_gen_ppg.npy  sentence_00335_0_gen_ppg.npy  sentence_00659_0_gen_ppg.npy
+sentence_00012_0_gen_ppg.npy  sentence_00336_0_gen_ppg.npy  sentence_00660_0_gen_ppg.npy
+sentence_00013_0_gen_ppg.npy  sentence_00337_0_gen_ppg.npy  sentence_00661_0_gen_ppg.npy
+sentence_00014_0_gen_ppg.npy  sentence_00338_0_gen_ppg.npy  sentence_00662_0_gen_ppg.npy
+sentence_00015_0_gen_ppg.npy  sentence_00339_0_gen_ppg.npy  sentence_00663_0_gen_ppg.npy
+sentence_00016_0_gen_ppg.npy  sentence_00340_0_gen_ppg.npy  sentence_00664_0_gen_ppg.npy
+sentence_00017_0_gen_ppg.npy  sentence_00341_0_gen_ppg.npy  sentence_00665_0_gen_ppg.npy
+sentence_00018_0_gen_ppg.npy  sentence_00342_0_gen_ppg.npy  sentence_00666_0_gen_ppg.npy
+sentence_00019_0_gen_ppg.npy  sentence_00343_0_gen_ppg.npy  sentence_00667_0_gen_ppg.npy
+sentence_00020_0_gen_ppg.npy  sentence_00344_0_gen_ppg.npy  sentence_00668_0_gen_ppg.npy
+sentence_00021_0_gen_ppg.npy  sentence_00345_0_gen_ppg.npy  sentence_00669_0_gen_ppg.npy
+sentence_00022_0_gen_ppg.npy  sentence_00346_0_gen_ppg.npy  sentence_00670_0_gen_ppg.npy
+sentence_00023_0_gen_ppg.npy  sentence_00347_0_gen_ppg.npy  sentence_00671_0_gen_ppg.npy
+sentence_00024_0_gen_ppg.npy  sentence_00348_0_gen_ppg.npy  sentence_00672_0_gen_ppg.npy
+sentence_00025_0_gen_ppg.npy  sentence_00349_0_gen_ppg.npy  sentence_00673_0_gen_ppg.npy
+sentence_00026_0_gen_ppg.npy  sentence_00350_0_gen_ppg.npy  sentence_00674_0_gen_ppg.npy
+sentence_00027_0_gen_ppg.npy  sentence_00351_0_gen_ppg.npy  sentence_00675_0_gen_ppg.npy
+sentence_00028_0_gen_ppg.npy  sentence_00352_0_gen_ppg.npy  sentence_00676_0_gen_ppg.npy
+sentence_00029_0_gen_ppg.npy  sentence_00353_0_gen_ppg.npy  sentence_00677_0_gen_ppg.npy
+sentence_00030_0_gen_ppg.npy  sentence_00354_0_gen_ppg.npy  sentence_00678_0_gen_ppg.npy
+sentence_00031_0_gen_ppg.npy  sentence_00355_0_gen_ppg.npy  sentence_00679_0_gen_ppg.npy
+sentence_00032_0_gen_ppg.npy  sentence_00356_0_gen_ppg.npy  sentence_00680_0_gen_ppg.npy
+sentence_00033_0_gen_ppg.npy  sentence_00357_0_gen_ppg.npy  sentence_00681_0_gen_ppg.npy
+sentence_00034_0_gen_ppg.npy  sentence_00358_0_gen_ppg.npy  sentence_00682_0_gen_ppg.npy
+sentence_00035_0_gen_ppg.npy  sentence_00359_0_gen_ppg.npy  sentence_00683_0_gen_ppg.npy
+sentence_00036_0_gen_ppg.npy  sentence_00360_0_gen_ppg.npy  sentence_00684_0_gen_ppg.npy
+sentence_00037_0_gen_ppg.npy  sentence_00361_0_gen_ppg.npy  sentence_00685_0_gen_ppg.npy
+sentence_00038_0_gen_ppg.npy  sentence_00362_0_gen_ppg.npy  sentence_00686_0_gen_ppg.npy
+sentence_00039_0_gen_ppg.npy  sentence_00363_0_gen_ppg.npy  sentence_00687_0_gen_ppg.npy
+sentence_00040_0_gen_ppg.npy  sentence_00364_0_gen_ppg.npy  sentence_00688_0_gen_ppg.npy
+sentence_00041_0_gen_ppg.npy  sentence_00365_0_gen_ppg.npy  sentence_00689_0_gen_ppg.npy
+sentence_00042_0_gen_ppg.npy  sentence_00366_0_gen_ppg.npy  sentence_00690_0_gen_ppg.npy
+sentence_00043_0_gen_ppg.npy  sentence_00367_0_gen_ppg.npy  sentence_00691_0_gen_ppg.npy
+sentence_00044_0_gen_ppg.npy  sentence_00368_0_gen_ppg.npy  sentence_00692_0_gen_ppg.npy
+sentence_00045_0_gen_ppg.npy  sentence_00369_0_gen_ppg.npy  sentence_00693_0_gen_ppg.npy
+sentence_00046_0_gen_ppg.npy  sentence_00370_0_gen_ppg.npy  sentence_00694_0_gen_ppg.npy
+sentence_00047_0_gen_ppg.npy  sentence_00371_0_gen_ppg.npy  sentence_00695_0_gen_ppg.npy
+sentence_00048_0_gen_ppg.npy  sentence_00372_0_gen_ppg.npy  sentence_00696_0_gen_ppg.npy
+sentence_00049_0_gen_ppg.npy  sentence_00373_0_gen_ppg.npy  sentence_00697_0_gen_ppg.npy
+sentence_00050_0_gen_ppg.npy  sentence_00374_0_gen_ppg.npy  sentence_00698_0_gen_ppg.npy
+sentence_00051_0_gen_ppg.npy  sentence_00375_0_gen_ppg.npy  sentence_00699_0_gen_ppg.npy
+sentence_00052_0_gen_ppg.npy  sentence_00376_0_gen_ppg.npy  sentence_00700_0_gen_ppg.npy
+sentence_00053_0_gen_ppg.npy  sentence_00377_0_gen_ppg.npy  sentence_00701_0_gen_ppg.npy
+sentence_00054_0_gen_ppg.npy  sentence_00378_0_gen_ppg.npy  sentence_00702_0_gen_ppg.npy
+sentence_00055_0_gen_ppg.npy  sentence_00379_0_gen_ppg.npy  sentence_00703_0_gen_ppg.npy
+sentence_00056_0_gen_ppg.npy  sentence_00380_0_gen_ppg.npy  sentence_00704_0_gen_ppg.npy
+sentence_00057_0_gen_ppg.npy  sentence_00381_0_gen_ppg.npy  sentence_00705_0_gen_ppg.npy
+sentence_00058_0_gen_ppg.npy  sentence_00382_0_gen_ppg.npy  sentence_00706_0_gen_ppg.npy
+sentence_00059_0_gen_ppg.npy  sentence_00383_0_gen_ppg.npy  sentence_00707_0_gen_ppg.npy
+sentence_00060_0_gen_ppg.npy  sentence_00384_0_gen_ppg.npy  sentence_00708_0_gen_ppg.npy
+sentence_00061_0_gen_ppg.npy  sentence_00385_0_gen_ppg.npy  sentence_00709_0_gen_ppg.npy
+sentence_00062_0_gen_ppg.npy  sentence_00386_0_gen_ppg.npy  sentence_00710_0_gen_ppg.npy
+sentence_00063_0_gen_ppg.npy  sentence_00387_0_gen_ppg.npy  sentence_00711_0_gen_ppg.npy
+sentence_00064_0_gen_ppg.npy  sentence_00388_0_gen_ppg.npy  sentence_00712_0_gen_ppg.npy
+sentence_00065_0_gen_ppg.npy  sentence_00389_0_gen_ppg.npy  sentence_00713_0_gen_ppg.npy
+sentence_00066_0_gen_ppg.npy  sentence_00390_0_gen_ppg.npy  sentence_00714_0_gen_ppg.npy
+sentence_00067_0_gen_ppg.npy  sentence_00391_0_gen_ppg.npy  sentence_00715_0_gen_ppg.npy
+sentence_00068_0_gen_ppg.npy  sentence_00392_0_gen_ppg.npy  sentence_00716_0_gen_ppg.npy
+sentence_00069_0_gen_ppg.npy  sentence_00393_0_gen_ppg.npy  sentence_00717_0_gen_ppg.npy
+sentence_00070_0_gen_ppg.npy  sentence_00394_0_gen_ppg.npy  sentence_00718_0_gen_ppg.npy
+sentence_00071_0_gen_ppg.npy  sentence_00395_0_gen_ppg.npy  sentence_00719_0_gen_ppg.npy
+sentence_00072_0_gen_ppg.npy  sentence_00396_0_gen_ppg.npy  sentence_00720_0_gen_ppg.npy
+sentence_00073_0_gen_ppg.npy  sentence_00397_0_gen_ppg.npy  sentence_00721_0_gen_ppg.npy
+sentence_00074_0_gen_ppg.npy  sentence_00398_0_gen_ppg.npy  sentence_00722_0_gen_ppg.npy
+sentence_00075_0_gen_ppg.npy  sentence_00399_0_gen_ppg.npy  sentence_00723_0_gen_ppg.npy
+sentence_00076_0_gen_ppg.npy  sentence_00400_0_gen_ppg.npy  sentence_00724_0_gen_ppg.npy
+sentence_00077_0_gen_ppg.npy  sentence_00401_0_gen_ppg.npy  sentence_00725_0_gen_ppg.npy
+sentence_00078_0_gen_ppg.npy  sentence_00402_0_gen_ppg.npy  sentence_00726_0_gen_ppg.npy
+sentence_00079_0_gen_ppg.npy  sentence_00403_0_gen_ppg.npy  sentence_00727_0_gen_ppg.npy
+sentence_00080_0_gen_ppg.npy  sentence_00404_0_gen_ppg.npy  sentence_00728_0_gen_ppg.npy
+sentence_00081_0_gen_ppg.npy  sentence_00405_0_gen_ppg.npy  sentence_00729_0_gen_ppg.npy
+sentence_00082_0_gen_ppg.npy  sentence_00406_0_gen_ppg.npy  sentence_00730_0_gen_ppg.npy
+sentence_00083_0_gen_ppg.npy  sentence_00407_0_gen_ppg.npy  sentence_00731_0_gen_ppg.npy
+sentence_00084_0_gen_ppg.npy  sentence_00408_0_gen_ppg.npy  sentence_00732_0_gen_ppg.npy
+sentence_00085_0_gen_ppg.npy  sentence_00409_0_gen_ppg.npy  sentence_00733_0_gen_ppg.npy
+sentence_00086_0_gen_ppg.npy  sentence_00410_0_gen_ppg.npy  sentence_00734_0_gen_ppg.npy
+sentence_00087_0_gen_ppg.npy  sentence_00411_0_gen_ppg.npy  sentence_00735_0_gen_ppg.npy
+sentence_00088_0_gen_ppg.npy  sentence_00412_0_gen_ppg.npy  sentence_00736_0_gen_ppg.npy
+sentence_00089_0_gen_ppg.npy  sentence_00413_0_gen_ppg.npy  sentence_00737_0_gen_ppg.npy
+sentence_00090_0_gen_ppg.npy  sentence_00414_0_gen_ppg.npy  sentence_00738_0_gen_ppg.npy
+sentence_00091_0_gen_ppg.npy  sentence_00415_0_gen_ppg.npy  sentence_00739_0_gen_ppg.npy
+sentence_00092_0_gen_ppg.npy  sentence_00416_0_gen_ppg.npy  sentence_00740_0_gen_ppg.npy
+sentence_00093_0_gen_ppg.npy  sentence_00417_0_gen_ppg.npy  sentence_00741_0_gen_ppg.npy
+sentence_00094_0_gen_ppg.npy  sentence_00418_0_gen_ppg.npy  sentence_00742_0_gen_ppg.npy
+sentence_00095_0_gen_ppg.npy  sentence_00419_0_gen_ppg.npy  sentence_00743_0_gen_ppg.npy
+sentence_00096_0_gen_ppg.npy  sentence_00420_0_gen_ppg.npy  sentence_00744_0_gen_ppg.npy
+sentence_00097_0_gen_ppg.npy  sentence_00421_0_gen_ppg.npy  sentence_00745_0_gen_ppg.npy
+sentence_00098_0_gen_ppg.npy  sentence_00422_0_gen_ppg.npy  sentence_00746_0_gen_ppg.npy
+sentence_00099_0_gen_ppg.npy  sentence_00423_0_gen_ppg.npy  sentence_00747_0_gen_ppg.npy
+sentence_00100_0_gen_ppg.npy  sentence_00424_0_gen_ppg.npy  sentence_00748_0_gen_ppg.npy
+sentence_00101_0_gen_ppg.npy  sentence_00425_0_gen_ppg.npy  sentence_00749_0_gen_ppg.npy
+sentence_00102_0_gen_ppg.npy  sentence_00426_0_gen_ppg.npy  sentence_00750_0_gen_ppg.npy
+sentence_00103_0_gen_ppg.npy  sentence_00427_0_gen_ppg.npy  sentence_00751_0_gen_ppg.npy
+sentence_00104_0_gen_ppg.npy  sentence_00428_0_gen_ppg.npy  sentence_00752_0_gen_ppg.npy
+sentence_00105_0_gen_ppg.npy  sentence_00429_0_gen_ppg.npy  sentence_00753_0_gen_ppg.npy
+sentence_00106_0_gen_ppg.npy  sentence_00430_0_gen_ppg.npy  sentence_00754_0_gen_ppg.npy
+sentence_00107_0_gen_ppg.npy  sentence_00431_0_gen_ppg.npy  sentence_00755_0_gen_ppg.npy
+sentence_00108_0_gen_ppg.npy  sentence_00432_0_gen_ppg.npy  sentence_00756_0_gen_ppg.npy
+sentence_00109_0_gen_ppg.npy  sentence_00433_0_gen_ppg.npy  sentence_00757_0_gen_ppg.npy
+sentence_00110_0_gen_ppg.npy  sentence_00434_0_gen_ppg.npy  sentence_00758_0_gen_ppg.npy
+sentence_00111_0_gen_ppg.npy  sentence_00435_0_gen_ppg.npy  sentence_00759_0_gen_ppg.npy
+sentence_00112_0_gen_ppg.npy  sentence_00436_0_gen_ppg.npy  sentence_00760_0_gen_ppg.npy
+sentence_00113_0_gen_ppg.npy  sentence_00437_0_gen_ppg.npy  sentence_00761_0_gen_ppg.npy
+sentence_00114_0_gen_ppg.npy  sentence_00438_0_gen_ppg.npy  sentence_00762_0_gen_ppg.npy
+sentence_00115_0_gen_ppg.npy  sentence_00439_0_gen_ppg.npy  sentence_00763_0_gen_ppg.npy
+sentence_00116_0_gen_ppg.npy  sentence_00440_0_gen_ppg.npy  sentence_00764_0_gen_ppg.npy
+sentence_00117_0_gen_ppg.npy  sentence_00441_0_gen_ppg.npy  sentence_00765_0_gen_ppg.npy
+sentence_00118_0_gen_ppg.npy  sentence_00442_0_gen_ppg.npy  sentence_00766_0_gen_ppg.npy
+sentence_00119_0_gen_ppg.npy  sentence_00443_0_gen_ppg.npy  sentence_00767_0_gen_ppg.npy
+sentence_00120_0_gen_ppg.npy  sentence_00444_0_gen_ppg.npy  sentence_00768_0_gen_ppg.npy
+sentence_00121_0_gen_ppg.npy  sentence_00445_0_gen_ppg.npy  sentence_00769_0_gen_ppg.npy
+sentence_00122_0_gen_ppg.npy  sentence_00446_0_gen_ppg.npy  sentence_00770_0_gen_ppg.npy
+sentence_00123_0_gen_ppg.npy  sentence_00447_0_gen_ppg.npy  sentence_00771_0_gen_ppg.npy
+sentence_00124_0_gen_ppg.npy  sentence_00448_0_gen_ppg.npy  sentence_00772_0_gen_ppg.npy
+sentence_00125_0_gen_ppg.npy  sentence_00449_0_gen_ppg.npy  sentence_00773_0_gen_ppg.npy
+sentence_00126_0_gen_ppg.npy  sentence_00450_0_gen_ppg.npy  sentence_00774_0_gen_ppg.npy
+sentence_00127_0_gen_ppg.npy  sentence_00451_0_gen_ppg.npy  sentence_00775_0_gen_ppg.npy
+sentence_00128_0_gen_ppg.npy  sentence_00452_0_gen_ppg.npy  sentence_00776_0_gen_ppg.npy
+sentence_00129_0_gen_ppg.npy  sentence_00453_0_gen_ppg.npy  sentence_00777_0_gen_ppg.npy
+sentence_00130_0_gen_ppg.npy  sentence_00454_0_gen_ppg.npy  sentence_00778_0_gen_ppg.npy
+sentence_00131_0_gen_ppg.npy  sentence_00455_0_gen_ppg.npy  sentence_00779_0_gen_ppg.npy
+sentence_00132_0_gen_ppg.npy  sentence_00456_0_gen_ppg.npy  sentence_00780_0_gen_ppg.npy
+sentence_00133_0_gen_ppg.npy  sentence_00457_0_gen_ppg.npy  sentence_00781_0_gen_ppg.npy
+sentence_00134_0_gen_ppg.npy  sentence_00458_0_gen_ppg.npy  sentence_00782_0_gen_ppg.npy
+sentence_00135_0_gen_ppg.npy  sentence_00459_0_gen_ppg.npy  sentence_00783_0_gen_ppg.npy
+sentence_00136_0_gen_ppg.npy  sentence_00460_0_gen_ppg.npy  sentence_00784_0_gen_ppg.npy
+sentence_00137_0_gen_ppg.npy  sentence_00461_0_gen_ppg.npy  sentence_00785_0_gen_ppg.npy
+sentence_00138_0_gen_ppg.npy  sentence_00462_0_gen_ppg.npy  sentence_00786_0_gen_ppg.npy
+sentence_00139_0_gen_ppg.npy  sentence_00463_0_gen_ppg.npy  sentence_00787_0_gen_ppg.npy
+sentence_00140_0_gen_ppg.npy  sentence_00464_0_gen_ppg.npy  sentence_00788_0_gen_ppg.npy
+sentence_00141_0_gen_ppg.npy  sentence_00465_0_gen_ppg.npy  sentence_00789_0_gen_ppg.npy
+sentence_00142_0_gen_ppg.npy  sentence_00466_0_gen_ppg.npy  sentence_00790_0_gen_ppg.npy
+sentence_00143_0_gen_ppg.npy  sentence_00467_0_gen_ppg.npy  sentence_00791_0_gen_ppg.npy
+sentence_00144_0_gen_ppg.npy  sentence_00468_0_gen_ppg.npy  sentence_00792_0_gen_ppg.npy
+sentence_00145_0_gen_ppg.npy  sentence_00469_0_gen_ppg.npy  sentence_00793_0_gen_ppg.npy
+sentence_00146_0_gen_ppg.npy  sentence_00470_0_gen_ppg.npy  sentence_00794_0_gen_ppg.npy
+sentence_00147_0_gen_ppg.npy  sentence_00471_0_gen_ppg.npy  sentence_00795_0_gen_ppg.npy
+sentence_00148_0_gen_ppg.npy  sentence_00472_0_gen_ppg.npy  sentence_00796_0_gen_ppg.npy
+sentence_00149_0_gen_ppg.npy  sentence_00473_0_gen_ppg.npy  sentence_00797_0_gen_ppg.npy
+sentence_00150_0_gen_ppg.npy  sentence_00474_0_gen_ppg.npy  sentence_00798_0_gen_ppg.npy
+sentence_00151_0_gen_ppg.npy  sentence_00475_0_gen_ppg.npy  sentence_00799_0_gen_ppg.npy
+sentence_00152_0_gen_ppg.npy  sentence_00476_0_gen_ppg.npy  sentence_00800_0_gen_ppg.npy
+sentence_00153_0_gen_ppg.npy  sentence_00477_0_gen_ppg.npy  sentence_00801_0_gen_ppg.npy
+sentence_00154_0_gen_ppg.npy  sentence_00478_0_gen_ppg.npy  sentence_00802_0_gen_ppg.npy
+sentence_00155_0_gen_ppg.npy  sentence_00479_0_gen_ppg.npy  sentence_00803_0_gen_ppg.npy
+sentence_00156_0_gen_ppg.npy  sentence_00480_0_gen_ppg.npy  sentence_00804_0_gen_ppg.npy
+sentence_00157_0_gen_ppg.npy  sentence_00481_0_gen_ppg.npy  sentence_00805_0_gen_ppg.npy
+sentence_00158_0_gen_ppg.npy  sentence_00482_0_gen_ppg.npy  sentence_00806_0_gen_ppg.npy
+sentence_00159_0_gen_ppg.npy  sentence_00483_0_gen_ppg.npy  sentence_00807_0_gen_ppg.npy
+sentence_00160_0_gen_ppg.npy  sentence_00484_0_gen_ppg.npy  sentence_00808_0_gen_ppg.npy
+sentence_00161_0_gen_ppg.npy  sentence_00485_0_gen_ppg.npy  sentence_00809_0_gen_ppg.npy
+sentence_00162_0_gen_ppg.npy  sentence_00486_0_gen_ppg.npy  sentence_00810_0_gen_ppg.npy
+sentence_00163_0_gen_ppg.npy  sentence_00487_0_gen_ppg.npy  sentence_00811_0_gen_ppg.npy
+sentence_00164_0_gen_ppg.npy  sentence_00488_0_gen_ppg.npy  sentence_00812_0_gen_ppg.npy
+sentence_00165_0_gen_ppg.npy  sentence_00489_0_gen_ppg.npy  sentence_00813_0_gen_ppg.npy
+sentence_00166_0_gen_ppg.npy  sentence_00490_0_gen_ppg.npy  sentence_00814_0_gen_ppg.npy
+sentence_00167_0_gen_ppg.npy  sentence_00491_0_gen_ppg.npy  sentence_00815_0_gen_ppg.npy
+sentence_00168_0_gen_ppg.npy  sentence_00492_0_gen_ppg.npy  sentence_00816_0_gen_ppg.npy
+sentence_00169_0_gen_ppg.npy  sentence_00493_0_gen_ppg.npy  sentence_00817_0_gen_ppg.npy
+sentence_00170_0_gen_ppg.npy  sentence_00494_0_gen_ppg.npy  sentence_00818_0_gen_ppg.npy
+sentence_00171_0_gen_ppg.npy  sentence_00495_0_gen_ppg.npy  sentence_00819_0_gen_ppg.npy
+sentence_00172_0_gen_ppg.npy  sentence_00496_0_gen_ppg.npy  sentence_00820_0_gen_ppg.npy
+sentence_00173_0_gen_ppg.npy  sentence_00497_0_gen_ppg.npy  sentence_00821_0_gen_ppg.npy
+sentence_00174_0_gen_ppg.npy  sentence_00498_0_gen_ppg.npy  sentence_00822_0_gen_ppg.npy
+sentence_00175_0_gen_ppg.npy  sentence_00499_0_gen_ppg.npy  sentence_00823_0_gen_ppg.npy
+sentence_00176_0_gen_ppg.npy  sentence_00500_0_gen_ppg.npy  sentence_00824_0_gen_ppg.npy
+sentence_00177_0_gen_ppg.npy  sentence_00501_0_gen_ppg.npy  sentence_00825_0_gen_ppg.npy
+sentence_00178_0_gen_ppg.npy  sentence_00502_0_gen_ppg.npy  sentence_00826_0_gen_ppg.npy
+sentence_00179_0_gen_ppg.npy  sentence_00503_0_gen_ppg.npy  sentence_00827_0_gen_ppg.npy
+sentence_00180_0_gen_ppg.npy  sentence_00504_0_gen_ppg.npy  sentence_00828_0_gen_ppg.npy
+sentence_00181_0_gen_ppg.npy  sentence_00505_0_gen_ppg.npy  sentence_00829_0_gen_ppg.npy
+sentence_00182_0_gen_ppg.npy  sentence_00506_0_gen_ppg.npy  sentence_00830_0_gen_ppg.npy
+sentence_00183_0_gen_ppg.npy  sentence_00507_0_gen_ppg.npy  sentence_00831_0_gen_ppg.npy
+sentence_00184_0_gen_ppg.npy  sentence_00508_0_gen_ppg.npy  sentence_00832_0_gen_ppg.npy
+sentence_00185_0_gen_ppg.npy  sentence_00509_0_gen_ppg.npy  sentence_00833_0_gen_ppg.npy
+sentence_00186_0_gen_ppg.npy  sentence_00510_0_gen_ppg.npy  sentence_00834_0_gen_ppg.npy
+sentence_00187_0_gen_ppg.npy  sentence_00511_0_gen_ppg.npy  sentence_00835_0_gen_ppg.npy
+sentence_00188_0_gen_ppg.npy  sentence_00512_0_gen_ppg.npy  sentence_00836_0_gen_ppg.npy
+sentence_00189_0_gen_ppg.npy  sentence_00513_0_gen_ppg.npy  sentence_00837_0_gen_ppg.npy
+sentence_00190_0_gen_ppg.npy  sentence_00514_0_gen_ppg.npy  sentence_00838_0_gen_ppg.npy
+sentence_00191_0_gen_ppg.npy  sentence_00515_0_gen_ppg.npy  sentence_00839_0_gen_ppg.npy
+sentence_00192_0_gen_ppg.npy  sentence_00516_0_gen_ppg.npy  sentence_00840_0_gen_ppg.npy
+sentence_00193_0_gen_ppg.npy  sentence_00517_0_gen_ppg.npy  sentence_00841_0_gen_ppg.npy
+sentence_00194_0_gen_ppg.npy  sentence_00518_0_gen_ppg.npy  sentence_00842_0_gen_ppg.npy
+sentence_00195_0_gen_ppg.npy  sentence_00519_0_gen_ppg.npy  sentence_00843_0_gen_ppg.npy
+sentence_00196_0_gen_ppg.npy  sentence_00520_0_gen_ppg.npy  sentence_00844_0_gen_ppg.npy
+sentence_00197_0_gen_ppg.npy  sentence_00521_0_gen_ppg.npy  sentence_00845_0_gen_ppg.npy
+sentence_00198_0_gen_ppg.npy  sentence_00522_0_gen_ppg.npy  sentence_00846_0_gen_ppg.npy
+sentence_00199_0_gen_ppg.npy  sentence_00523_0_gen_ppg.npy  sentence_00847_0_gen_ppg.npy
+sentence_00200_0_gen_ppg.npy  sentence_00524_0_gen_ppg.npy  sentence_00848_0_gen_ppg.npy
+sentence_00201_0_gen_ppg.npy  sentence_00525_0_gen_ppg.npy  sentence_00849_0_gen_ppg.npy
+sentence_00202_0_gen_ppg.npy  sentence_00526_0_gen_ppg.npy  sentence_00850_0_gen_ppg.npy
+sentence_00203_0_gen_ppg.npy  sentence_00527_0_gen_ppg.npy  sentence_00851_0_gen_ppg.npy
+sentence_00204_0_gen_ppg.npy  sentence_00528_0_gen_ppg.npy  sentence_00852_0_gen_ppg.npy
+sentence_00205_0_gen_ppg.npy  sentence_00529_0_gen_ppg.npy  sentence_00853_0_gen_ppg.npy
+sentence_00206_0_gen_ppg.npy  sentence_00530_0_gen_ppg.npy  sentence_00854_0_gen_ppg.npy
+sentence_00207_0_gen_ppg.npy  sentence_00531_0_gen_ppg.npy  sentence_00855_0_gen_ppg.npy
+sentence_00208_0_gen_ppg.npy  sentence_00532_0_gen_ppg.npy  sentence_00856_0_gen_ppg.npy
+sentence_00209_0_gen_ppg.npy  sentence_00533_0_gen_ppg.npy  sentence_00857_0_gen_ppg.npy
+sentence_00210_0_gen_ppg.npy  sentence_00534_0_gen_ppg.npy  sentence_00858_0_gen_ppg.npy
+sentence_00211_0_gen_ppg.npy  sentence_00535_0_gen_ppg.npy  sentence_00859_0_gen_ppg.npy
+sentence_00212_0_gen_ppg.npy  sentence_00536_0_gen_ppg.npy  sentence_00860_0_gen_ppg.npy
+sentence_00213_0_gen_ppg.npy  sentence_00537_0_gen_ppg.npy  sentence_00861_0_gen_ppg.npy
+sentence_00214_0_gen_ppg.npy  sentence_00538_0_gen_ppg.npy  sentence_00862_0_gen_ppg.npy
+sentence_00215_0_gen_ppg.npy  sentence_00539_0_gen_ppg.npy  sentence_00863_0_gen_ppg.npy
+sentence_00216_0_gen_ppg.npy  sentence_00540_0_gen_ppg.npy  sentence_00864_0_gen_ppg.npy
+sentence_00217_0_gen_ppg.npy  sentence_00541_0_gen_ppg.npy  sentence_00865_0_gen_ppg.npy
+sentence_00218_0_gen_ppg.npy  sentence_00542_0_gen_ppg.npy  sentence_00866_0_gen_ppg.npy
+sentence_00219_0_gen_ppg.npy  sentence_00543_0_gen_ppg.npy  sentence_00867_0_gen_ppg.npy
+sentence_00220_0_gen_ppg.npy  sentence_00544_0_gen_ppg.npy  sentence_00868_0_gen_ppg.npy
+sentence_00221_0_gen_ppg.npy  sentence_00545_0_gen_ppg.npy  sentence_00869_0_gen_ppg.npy
+sentence_00222_0_gen_ppg.npy  sentence_00546_0_gen_ppg.npy  sentence_00870_0_gen_ppg.npy
+sentence_00223_0_gen_ppg.npy  sentence_00547_0_gen_ppg.npy  sentence_00871_0_gen_ppg.npy
+sentence_00224_0_gen_ppg.npy  sentence_00548_0_gen_ppg.npy  sentence_00872_0_gen_ppg.npy
+sentence_00225_0_gen_ppg.npy  sentence_00549_0_gen_ppg.npy  sentence_00873_0_gen_ppg.npy
+sentence_00226_0_gen_ppg.npy  sentence_00550_0_gen_ppg.npy  sentence_00874_0_gen_ppg.npy
+sentence_00227_0_gen_ppg.npy  sentence_00551_0_gen_ppg.npy  sentence_00875_0_gen_ppg.npy
+sentence_00228_0_gen_ppg.npy  sentence_00552_0_gen_ppg.npy  sentence_00876_0_gen_ppg.npy
+sentence_00229_0_gen_ppg.npy  sentence_00553_0_gen_ppg.npy  sentence_00877_0_gen_ppg.npy
+sentence_00230_0_gen_ppg.npy  sentence_00554_0_gen_ppg.npy  sentence_00878_0_gen_ppg.npy
+sentence_00231_0_gen_ppg.npy  sentence_00555_0_gen_ppg.npy  sentence_00879_0_gen_ppg.npy
+sentence_00232_0_gen_ppg.npy  sentence_00556_0_gen_ppg.npy  sentence_00880_0_gen_ppg.npy
+sentence_00233_0_gen_ppg.npy  sentence_00557_0_gen_ppg.npy  sentence_00881_0_gen_ppg.npy
+sentence_00234_0_gen_ppg.npy  sentence_00558_0_gen_ppg.npy  sentence_00882_0_gen_ppg.npy
+sentence_00235_0_gen_ppg.npy  sentence_00559_0_gen_ppg.npy  sentence_00883_0_gen_ppg.npy
+sentence_00236_0_gen_ppg.npy  sentence_00560_0_gen_ppg.npy  sentence_00884_0_gen_ppg.npy
+sentence_00237_0_gen_ppg.npy  sentence_00561_0_gen_ppg.npy  sentence_00885_0_gen_ppg.npy
+sentence_00238_0_gen_ppg.npy  sentence_00562_0_gen_ppg.npy  sentence_00886_0_gen_ppg.npy
+sentence_00239_0_gen_ppg.npy  sentence_00563_0_gen_ppg.npy  sentence_00887_0_gen_ppg.npy
+sentence_00240_0_gen_ppg.npy  sentence_00564_0_gen_ppg.npy  sentence_00888_0_gen_ppg.npy
+sentence_00241_0_gen_ppg.npy  sentence_00565_0_gen_ppg.npy  sentence_00889_0_gen_ppg.npy
+sentence_00242_0_gen_ppg.npy  sentence_00566_0_gen_ppg.npy  sentence_00890_0_gen_ppg.npy
+sentence_00243_0_gen_ppg.npy  sentence_00567_0_gen_ppg.npy  sentence_00891_0_gen_ppg.npy
+sentence_00244_0_gen_ppg.npy  sentence_00568_0_gen_ppg.npy  sentence_00892_0_gen_ppg.npy
+sentence_00245_0_gen_ppg.npy  sentence_00569_0_gen_ppg.npy  sentence_00893_0_gen_ppg.npy
+sentence_00246_0_gen_ppg.npy  sentence_00570_0_gen_ppg.npy  sentence_00894_0_gen_ppg.npy
+sentence_00247_0_gen_ppg.npy  sentence_00571_0_gen_ppg.npy  sentence_00895_0_gen_ppg.npy
+sentence_00248_0_gen_ppg.npy  sentence_00572_0_gen_ppg.npy  sentence_00896_0_gen_ppg.npy
+sentence_00249_0_gen_ppg.npy  sentence_00573_0_gen_ppg.npy  sentence_00897_0_gen_ppg.npy
+sentence_00250_0_gen_ppg.npy  sentence_00574_0_gen_ppg.npy  sentence_00898_0_gen_ppg.npy
+sentence_00251_0_gen_ppg.npy  sentence_00575_0_gen_ppg.npy  sentence_00899_0_gen_ppg.npy
+sentence_00252_0_gen_ppg.npy  sentence_00576_0_gen_ppg.npy  sentence_00900_0_gen_ppg.npy
+sentence_00253_0_gen_ppg.npy  sentence_00577_0_gen_ppg.npy  sentence_00901_0_gen_ppg.npy
+sentence_00254_0_gen_ppg.npy  sentence_00578_0_gen_ppg.npy  sentence_00902_0_gen_ppg.npy
+sentence_00255_0_gen_ppg.npy  sentence_00579_0_gen_ppg.npy  sentence_00903_0_gen_ppg.npy
+sentence_00256_0_gen_ppg.npy  sentence_00580_0_gen_ppg.npy  sentence_00904_0_gen_ppg.npy
+sentence_00257_0_gen_ppg.npy  sentence_00581_0_gen_ppg.npy  sentence_00905_0_gen_ppg.npy
+sentence_00258_0_gen_ppg.npy  sentence_00582_0_gen_ppg.npy  sentence_00906_0_gen_ppg.npy
+sentence_00259_0_gen_ppg.npy  sentence_00583_0_gen_ppg.npy  sentence_00907_0_gen_ppg.npy
+sentence_00260_0_gen_ppg.npy  sentence_00584_0_gen_ppg.npy  sentence_00908_0_gen_ppg.npy
+sentence_00261_0_gen_ppg.npy  sentence_00585_0_gen_ppg.npy  sentence_00909_0_gen_ppg.npy
+sentence_00262_0_gen_ppg.npy  sentence_00586_0_gen_ppg.npy  sentence_00910_0_gen_ppg.npy
+sentence_00263_0_gen_ppg.npy  sentence_00587_0_gen_ppg.npy  sentence_00911_0_gen_ppg.npy
+sentence_00264_0_gen_ppg.npy  sentence_00588_0_gen_ppg.npy  sentence_00912_0_gen_ppg.npy
+sentence_00265_0_gen_ppg.npy  sentence_00589_0_gen_ppg.npy  sentence_00913_0_gen_ppg.npy
+sentence_00266_0_gen_ppg.npy  sentence_00590_0_gen_ppg.npy  sentence_00914_0_gen_ppg.npy
+sentence_00267_0_gen_ppg.npy  sentence_00591_0_gen_ppg.npy  sentence_00915_0_gen_ppg.npy
+sentence_00268_0_gen_ppg.npy  sentence_00592_0_gen_ppg.npy  sentence_00916_0_gen_ppg.npy
+sentence_00269_0_gen_ppg.npy  sentence_00593_0_gen_ppg.npy  sentence_00917_0_gen_ppg.npy
+sentence_00270_0_gen_ppg.npy  sentence_00594_0_gen_ppg.npy  sentence_00918_0_gen_ppg.npy
+sentence_00271_0_gen_ppg.npy  sentence_00595_0_gen_ppg.npy  sentence_00919_0_gen_ppg.npy
+sentence_00272_0_gen_ppg.npy  sentence_00596_0_gen_ppg.npy  sentence_00920_0_gen_ppg.npy
+sentence_00273_0_gen_ppg.npy  sentence_00597_0_gen_ppg.npy  sentence_00921_0_gen_ppg.npy
+sentence_00274_0_gen_ppg.npy  sentence_00598_0_gen_ppg.npy  sentence_00922_0_gen_ppg.npy
+sentence_00275_0_gen_ppg.npy  sentence_00599_0_gen_ppg.npy  sentence_00923_0_gen_ppg.npy
+sentence_00276_0_gen_ppg.npy  sentence_00600_0_gen_ppg.npy  sentence_00924_0_gen_ppg.npy
+sentence_00277_0_gen_ppg.npy  sentence_00601_0_gen_ppg.npy  sentence_00925_0_gen_ppg.npy
+sentence_00278_0_gen_ppg.npy  sentence_00602_0_gen_ppg.npy  sentence_00926_0_gen_ppg.npy
+sentence_00279_0_gen_ppg.npy  sentence_00603_0_gen_ppg.npy  sentence_00927_0_gen_ppg.npy
+sentence_00280_0_gen_ppg.npy  sentence_00604_0_gen_ppg.npy  sentence_00928_0_gen_ppg.npy
+sentence_00281_0_gen_ppg.npy  sentence_00605_0_gen_ppg.npy  sentence_00929_0_gen_ppg.npy
+sentence_00282_0_gen_ppg.npy  sentence_00606_0_gen_ppg.npy  sentence_00930_0_gen_ppg.npy
+sentence_00283_0_gen_ppg.npy  sentence_00607_0_gen_ppg.npy  sentence_00931_0_gen_ppg.npy
+sentence_00284_0_gen_ppg.npy  sentence_00608_0_gen_ppg.npy  sentence_00932_0_gen_ppg.npy
+sentence_00285_0_gen_ppg.npy  sentence_00609_0_gen_ppg.npy  sentence_00933_0_gen_ppg.npy
+sentence_00286_0_gen_ppg.npy  sentence_00610_0_gen_ppg.npy  sentence_00934_0_gen_ppg.npy
+sentence_00287_0_gen_ppg.npy  sentence_00611_0_gen_ppg.npy  sentence_00935_0_gen_ppg.npy
+sentence_00288_0_gen_ppg.npy  sentence_00612_0_gen_ppg.npy  sentence_00936_0_gen_ppg.npy
+sentence_00289_0_gen_ppg.npy  sentence_00613_0_gen_ppg.npy  sentence_00937_0_gen_ppg.npy
+sentence_00290_0_gen_ppg.npy  sentence_00614_0_gen_ppg.npy  sentence_00938_0_gen_ppg.npy
+sentence_00291_0_gen_ppg.npy  sentence_00615_0_gen_ppg.npy  sentence_00939_0_gen_ppg.npy
+sentence_00292_0_gen_ppg.npy  sentence_00616_0_gen_ppg.npy  sentence_00940_0_gen_ppg.npy
+sentence_00293_0_gen_ppg.npy  sentence_00617_0_gen_ppg.npy  sentence_00941_0_gen_ppg.npy
+sentence_00294_0_gen_ppg.npy  sentence_00618_0_gen_ppg.npy  sentence_00942_0_gen_ppg.npy
+sentence_00295_0_gen_ppg.npy  sentence_00619_0_gen_ppg.npy  sentence_00943_0_gen_ppg.npy
+sentence_00296_0_gen_ppg.npy  sentence_00620_0_gen_ppg.npy  sentence_00944_0_gen_ppg.npy
+sentence_00297_0_gen_ppg.npy  sentence_00621_0_gen_ppg.npy  sentence_00945_0_gen_ppg.npy
+sentence_00298_0_gen_ppg.npy  sentence_00622_0_gen_ppg.npy  sentence_00946_0_gen_ppg.npy
+sentence_00299_0_gen_ppg.npy  sentence_00623_0_gen_ppg.npy  sentence_00947_0_gen_ppg.npy
+sentence_00300_0_gen_ppg.npy  sentence_00624_0_gen_ppg.npy  sentence_00948_0_gen_ppg.npy
+sentence_00301_0_gen_ppg.npy  sentence_00625_0_gen_ppg.npy  sentence_00949_0_gen_ppg.npy
+sentence_00302_0_gen_ppg.npy  sentence_00626_0_gen_ppg.npy  sentence_00950_0_gen_ppg.npy
+sentence_00303_0_gen_ppg.npy  sentence_00627_0_gen_ppg.npy  sentence_00951_0_gen_ppg.npy
+sentence_00304_0_gen_ppg.npy  sentence_00628_0_gen_ppg.npy  sentence_00952_0_gen_ppg.npy
+sentence_00305_0_gen_ppg.npy  sentence_00629_0_gen_ppg.npy  sentence_00953_0_gen_ppg.npy
+sentence_00306_0_gen_ppg.npy  sentence_00630_0_gen_ppg.npy  sentence_00954_0_gen_ppg.npy
+sentence_00307_0_gen_ppg.npy  sentence_00631_0_gen_ppg.npy  sentence_00955_0_gen_ppg.npy
+sentence_00308_0_gen_ppg.npy  sentence_00632_0_gen_ppg.npy  sentence_00956_0_gen_ppg.npy
+sentence_00309_0_gen_ppg.npy  sentence_00633_0_gen_ppg.npy  sentence_00957_0_gen_ppg.npy
+sentence_00310_0_gen_ppg.npy  sentence_00634_0_gen_ppg.npy  sentence_00958_0_gen_ppg.npy
+sentence_00311_0_gen_ppg.npy  sentence_00635_0_gen_ppg.npy  sentence_00959_0_gen_ppg.npy
+sentence_00312_0_gen_ppg.npy  sentence_00636_0_gen_ppg.npy  sentence_00960_0_gen_ppg.npy
+sentence_00313_0_gen_ppg.npy  sentence_00637_0_gen_ppg.npy  sentence_00961_0_gen_ppg.npy
+sentence_00314_0_gen_ppg.npy  sentence_00638_0_gen_ppg.npy  sentence_00962_0_gen_ppg.npy
+sentence_00315_0_gen_ppg.npy  sentence_00639_0_gen_ppg.npy  sentence_00963_0_gen_ppg.npy
+sentence_00316_0_gen_ppg.npy  sentence_00640_0_gen_ppg.npy  sentence_00964_0_gen_ppg.npy
+sentence_00317_0_gen_ppg.npy  sentence_00641_0_gen_ppg.npy  sentence_00965_0_gen_ppg.npy
+sentence_00318_0_gen_ppg.npy  sentence_00642_0_gen_ppg.npy  sentence_00966_0_gen_ppg.npy
+sentence_00319_0_gen_ppg.npy  sentence_00643_0_gen_ppg.npy  sentence_00967_0_gen_ppg.npy
+sentence_00320_0_gen_ppg.npy  sentence_00644_0_gen_ppg.npy  sentence_00968_0_gen_ppg.npy
+sentence_00321_0_gen_ppg.npy  sentence_00645_0_gen_ppg.npy  sentence_00969_0_gen_ppg.npy
+sentence_00322_0_gen_ppg.npy  sentence_00646_0_gen_ppg.npy  sentence_00970_0_gen_ppg.npy
+sentence_00323_0_gen_ppg.npy  sentence_00647_0_gen_ppg.npy  sentence_00971_0_gen_ppg.npy
+[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/data_fr/ppg/neb_syn[00m$ clear
+[H[J[38;5;202m[38;5;245masini[00m@[38;5;172melite[00m:[38;5;5m/mnt/mydrive/home/aghilas/Workspace/Experiments/SynPaFlex-Code/VoiceConversion/cvc-via-ppg/data_fr/ppg/neb_syn[00m$ ls
+sentence_00000_0_gen_ppg.npy  sentence_00324_0_gen_ppg.npy  sentence_00648_0_gen_ppg.npy
+sentence_00001_0_gen_ppg.npy  sentence_00325_0_gen_ppg.npy  sentence_00649_0_gen_ppg.npy
+sentence_00002_0_gen_ppg.npy  sentence_00326_0_gen_ppg.npy  sentence_00650_0_gen_ppg.npy
+sentence_00003_0_gen_ppg.npy  sentence_00327_0_gen_ppg.npy  sentence_00651_0_gen_ppg.npy
+sentence_00004_0_gen_ppg.npy  sentence_00328_0_gen_ppg.npy  sentence_00652_0_gen_ppg.npy
+sentence_00005_0_gen_ppg.npy  sentence_00329_0_gen_ppg.npy  sentence_00653_0_gen_ppg.npy
+sentence_00006_0_gen_ppg.npy  sentence_00330_0_gen_ppg.npy  sentence_00654_0_gen_ppg.npy
+sentence_00007_0_gen_ppg.npy  sentence_00331_0_gen_ppg.npy  sentence_00655_0_gen_ppg.npy
+sentence_00008_0_gen_ppg.npy  sentence_00332_0_gen_ppg.npy  sentence_00656_0_gen_ppg.npy
+sentence_00009_0_gen_ppg.npy  sentence_00333_0_gen_ppg.npy  sentence_00657_0_gen_ppg.npy
+sentence_00010_0_gen_ppg.npy  sentence_00334_0_gen_ppg.npy  sentence_00658_0_gen_ppg.npy
+sentence_00011_0_gen_ppg.npy  sentence_00335_0_gen_ppg.npy  sentence_00659_0_gen_ppg.npy
+sentence_00012_0_gen_ppg.npy  sentence_00336_0_gen_ppg.npy  sentence_00660_0_gen_ppg.npy
+sentence_00013_0_gen_ppg.npy  sentence_00337_0_gen_ppg.npy  sentence_00661_0_gen_ppg.npy
+sentence_00014_0_gen_ppg.npy  sentence_00338_0_gen_ppg.npy  sentence_00662_0_gen_ppg.npy
+sentence_00015_0_gen_ppg.npy  sentence_00339_0_gen_ppg.npy  sentence_00663_0_gen_ppg.npy
+sentence_00016_0_gen_ppg.npy  sentence_00340_0_gen_ppg.npy  sentence_00664_0_gen_ppg.npy
+sentence_00017_0_gen_ppg.npy  sentence_00341_0_gen_ppg.npy  sentence_00665_0_gen_ppg.npy
+sentence_00018_0_gen_ppg.npy  sentence_00342_0_gen_ppg.npy  sentence_00666_0_gen_ppg.npy
+sentence_00019_0_gen_ppg.npy  sentence_00343_0_gen_ppg.npy  sentence_00667_0_gen_ppg.npy
+sentence_00020_0_gen_ppg.npy  sentence_00344_0_gen_ppg.npy  sentence_00668_0_gen_ppg.npy
+sentence_00021_0_gen_ppg.npy  sentence_00345_0_gen_ppg.npy  sentence_00669_0_gen_ppg.npy
+sentence_00022_0_gen_ppg.npy  sentence_00346_0_gen_ppg.npy  sentence_00670_0_gen_ppg.npy
+sentence_00023_0_gen_ppg.npy  sentence_00347_0_gen_ppg.npy  sentence_00671_0_gen_ppg.npy
+sentence_00024_0_gen_ppg.npy  sentence_00348_0_gen_ppg.npy  sentence_00672_0_gen_ppg.npy
+sentence_00025_0_gen_ppg.npy  sentence_00349_0_gen_ppg.npy  sentence_00673_0_gen_ppg.npy
+sentence_00026_0_gen_ppg.npy  sentence_00350_0_gen_ppg.npy  sentence_00674_0_gen_ppg.npy
+sentence_00027_0_gen_ppg.npy  sentence_00351_0_gen_ppg.npy  sentence_00675_0_gen_ppg.npy
+sentence_00028_0_gen_ppg.npy  sentence_00352_0_gen_ppg.npy  sentence_00676_0_gen_ppg.npy
+sentence_00029_0_gen_ppg.npy  sentence_00353_0_gen_ppg.npy  sentence_00677_0_gen_ppg.npy
+sentence_00030_0_gen_ppg.npy  sentence_00354_0_gen_ppg.npy  sentence_00678_0_gen_ppg.npy
+sentence_00031_0_gen_ppg.npy  sentence_00355_0_gen_ppg.npy  sentence_00679_0_gen_ppg.npy
+sentence_00032_0_gen_ppg.npy  sentence_00356_0_gen_ppg.npy  sentence_00680_0_gen_ppg.npy
+sentence_00033_0_gen_ppg.npy  sentence_00357_0_gen_ppg.npy  sentence_00681_0_gen_ppg.npy
+sentence_00034_0_gen_ppg.npy  sentence_00358_0_gen_ppg.npy  sentence_00682_0_gen_ppg.npy
+sentence_00035_0_gen_ppg.npy  sentence_00359_0_gen_ppg.npy  sentence_00683_0_gen_ppg.npy
+sentence_00036_0_gen_ppg.npy  sentence_00360_0_gen_ppg.npy  sentence_00684_0_gen_ppg.npy
+sentence_00037_0_gen_ppg.npy  sentence_00361_0_gen_ppg.npy  sentence_00685_0_gen_ppg.npy
+sentence_00038_0_gen_ppg.npy  sentence_00362_0_gen_ppg.npy  sentence_00686_0_gen_ppg.npy
+sentence_00039_0_gen_ppg.npy  sentence_00363_0_gen_ppg.npy  sentence_00687_0_gen_ppg.npy
+sentence_00040_0_gen_ppg.npy  sentence_00364_0_gen_ppg.npy  sentence_00688_0_gen_ppg.npy
+sentence_00041_0_gen_ppg.npy  sentence_00365_0_gen_ppg.npy  sentence_00689_0_gen_ppg.npy
+sentence_00042_0_gen_ppg.npy  sentence_00366_0_gen_ppg.npy  sentence_00690_0_gen_ppg.npy
+sentence_00043_0_gen_ppg.npy  sentence_00367_0_gen_ppg.npy  sentence_00691_0_gen_ppg.npy
+sentence_00044_0_gen_ppg.npy  sentence_00368_0_gen_ppg.npy  sentence_00692_0_gen_ppg.npy
+sentence_00045_0_gen_ppg.npy  sentence_00369_0_gen_ppg.npy  sentence_00693_0_gen_ppg.npy
+sentence_00046_0_gen_ppg.npy  sentence_00370_0_gen_ppg.npy  sentence_00694_0_gen_ppg.npy
+sentence_00047_0_gen_ppg.npy  sentence_00371_0_gen_ppg.npy  sentence_00695_0_gen_ppg.npy
+sentence_00048_0_gen_ppg.npy  sentence_00372_0_gen_ppg.npy  sentence_00696_0_gen_ppg.npy
+sentence_00049_0_gen_ppg.npy  sentence_00373_0_gen_ppg.npy  sentence_00697_0_gen_ppg.npy
+sentence_00050_0_gen_ppg.npy  sentence_00374_0_gen_ppg.npy  sentence_00698_0_gen_ppg.npy
+sentence_00051_0_gen_ppg.npy  sentence_00375_0_gen_ppg.npy  sentence_00699_0_gen_ppg.npy
+sentence_00052_0_gen_ppg.npy  sentence_00376_0_gen_ppg.npy  sentence_00700_0_gen_ppg.npy
+sentence_00053_0_gen_ppg.npy  sentence_00377_0_gen_ppg.npy  sentence_00701_0_gen_ppg.npy
+sentence_00054_0_gen_ppg.npy  sentence_00378_0_gen_ppg.npy  sentence_00702_0_gen_ppg.npy
+sentence_00055_0_gen_ppg.npy  sentence_00379_0_gen_ppg.npy  sentence_00703_0_gen_ppg.npy
+sentence_00056_0_gen_ppg.npy  sentence_00380_0_gen_ppg.npy  sentence_00704_0_gen_ppg.npy
+sentence_00057_0_gen_ppg.npy  sentence_00381_0_gen_ppg.npy  sentence_00705_0_gen_ppg.npy
+sentence_00058_0_gen_ppg.npy  sentence_00382_0_gen_ppg.npy  sentence_00706_0_gen_ppg.npy
+sentence_00059_0_gen_ppg.npy  sentence_00383_0_gen_ppg.npy  sentence_00707_0_gen_ppg.npy
+sentence_00060_0_gen_ppg.npy  sentence_00384_0_gen_ppg.npy  sentence_00708_0_gen_ppg.npy
+sentence_00061_0_gen_ppg.npy  sentence_00385_0_gen_ppg.npy  sentence_00709_0_gen_ppg.npy
+sentence_00062_0_gen_ppg.npy  sentence_00386_0_gen_ppg.npy  sentence_00710_0_gen_ppg.npy
+sentence_00063_0_gen_ppg.npy  sentence_00387_0_gen_ppg.npy  sentence_00711_0_gen_ppg.npy
+sentence_00064_0_gen_ppg.npy  sentence_00388_0_gen_ppg.npy  sentence_00712_0_gen_ppg.npy
+sentence_00065_0_gen_ppg.npy  sentence_00389_0_gen_ppg.npy  sentence_00713_0_gen_ppg.npy
+sentence_00066_0_gen_ppg.npy  sentence_00390_0_gen_ppg.npy  sentence_00714_0_gen_ppg.npy
+sentence_00067_0_gen_ppg.npy  sentence_00391_0_gen_ppg.npy  sentence_00715_0_gen_ppg.npy
+sentence_00068_0_gen_ppg.npy  sentence_00392_0_gen_ppg.npy  sentence_00716_0_gen_ppg.npy
+sentence_00069_0_gen_ppg.npy  sentence_00393_0_gen_ppg.npy  sentence_00717_0_gen_ppg.npy
+sentence_00070_0_gen_ppg.npy  sentence_00394_0_gen_ppg.npy  sentence_00718_0_gen_ppg.npy
+sentence_00071_0_gen_ppg.npy  sentence_00395_0_gen_ppg.npy  sentence_00719_0_gen_ppg.npy
+sentence_00072_0_gen_ppg.npy  sentence_00396_0_gen_ppg.npy  sentence_00720_0_gen_ppg.npy
+sentence_00073_0_gen_ppg.npy  sentence_00397_0_gen_ppg.npy  sentence_00721_0_gen_ppg.npy
+sentence_00074_0_gen_ppg.npy  sentence_00398_0_gen_ppg.npy  sentence_00722_0_gen_ppg.npy
+sentence_00075_0_gen_ppg.npy  sentence_00399_0_gen_ppg.npy  sentence_00723_0_gen_ppg.npy
+sentence_00076_0_gen_ppg.npy  sentence_00400_0_gen_ppg.npy  sentence_00724_0_gen_ppg.npy
+sentence_00077_0_gen_ppg.npy  sentence_00401_0_gen_ppg.npy  sentence_00725_0_gen_ppg.npy
+sentence_00078_0_gen_ppg.npy  sentence_00402_0_gen_ppg.npy  sentence_00726_0_gen_ppg.npy
+sentence_00079_0_gen_ppg.npy  sentence_00403_0_gen_ppg.npy  sentence_00727_0_gen_ppg.npy
+sentence_00080_0_gen_ppg.npy  sentence_00404_0_gen_ppg.npy  sentence_00728_0_gen_ppg.npy
+sentence_00081_0_gen_ppg.npy  sentence_00405_0_gen_ppg.npy  sentence_00729_0_gen_ppg.npy
+sentence_00082_0_gen_ppg.npy  sentence_00406_0_gen_ppg.npy  sentence_00730_0_gen_ppg.npy
+sentence_00083_0_gen_ppg.npy  sentence_00407_0_gen_ppg.npy  sentence_00731_0_gen_ppg.npy
+sentence_00084_0_gen_ppg.npy  sentence_00408_0_gen_ppg.npy  sentence_00732_0_gen_ppg.npy
+sentence_00085_0_gen_ppg.npy  sentence_00409_0_gen_ppg.npy  sentence_00733_0_gen_ppg.npy
+sentence_00086_0_gen_ppg.npy  sentence_00410_0_gen_ppg.npy  sentence_00734_0_gen_ppg.npy
+sentence_00087_0_gen_ppg.npy  sentence_00411_0_gen_ppg.npy  sentence_00735_0_gen_ppg.npy
+sentence_00088_0_gen_ppg.npy  sentence_00412_0_gen_ppg.npy  sentence_00736_0_gen_ppg.npy
+sentence_00089_0_gen_ppg.npy  sentence_00413_0_gen_ppg.npy  sentence_00737_0_gen_ppg.npy
+sentence_00090_0_gen_ppg.npy  sentence_00414_0_gen_ppg.npy  sentence_00738_0_gen_ppg.npy
+sentence_00091_0_gen_ppg.npy  sentence_00415_0_gen_ppg.npy  sentence_00739_0_gen_ppg.npy
+sentence_00092_0_gen_ppg.npy  sentence_00416_0_gen_ppg.npy  sentence_00740_0_gen_ppg.npy
+sentence_00093_0_gen_ppg.npy  sentence_00417_0_gen_ppg.npy  sentence_00741_0_gen_ppg.npy
+sentence_00094_0_gen_ppg.npy  sentence_00418_0_gen_ppg.npy  sentence_00742_0_gen_ppg.npy
+sentence_00095_0_gen_ppg.npy  sentence_00419_0_gen_ppg.npy  sentence_00743_0_gen_ppg.npy
+sentence_00096_0_gen_ppg.npy  sentence_00420_0_gen_ppg.npy  sentence_00744_0_gen_ppg.npy
+sentence_00097_0_gen_ppg.npy  sentence_00421_0_gen_ppg.npy  sentence_00745_0_gen_ppg.npy
+sentence_00098_0_gen_ppg.npy  sentence_00422_0_gen_ppg.npy  sentence_00746_0_gen_ppg.npy
+sentence_00099_0_gen_ppg.npy  sentence_00423_0_gen_ppg.npy  sentence_00747_0_gen_ppg.npy
+sentence_00100_0_gen_ppg.npy  sentence_00424_0_gen_ppg.npy  sentence_00748_0_gen_ppg.npy
+sentence_00101_0_gen_ppg.npy  sentence_00425_0_gen_ppg.npy  sentence_00749_0_gen_ppg.npy
+sentence_00102_0_gen_ppg.npy  sentence_00426_0_gen_ppg.npy  sentence_00750_0_gen_ppg.npy
+sentence_00103_0_gen_ppg.npy  sentence_00427_0_gen_ppg.npy  sentence_00751_0_gen_ppg.npy
+sentence_00104_0_gen_ppg.npy  sentence_00428_0_gen_ppg.npy  sentence_00752_0_gen_ppg.npy
+sentence_00105_0_gen_ppg.npy  sentence_00429_0_gen_ppg.npy  sentence_00753_0_gen_ppg.npy
+sentence_00106_0_gen_ppg.npy  sentence_00430_0_gen_ppg.npy  sentence_00754_0_gen_ppg.npy
+sentence_00107_0_gen_ppg.npy  sentence_00431_0_gen_ppg.npy  sentence_00755_0_gen_ppg.npy
+sentence_00108_0_gen_ppg.npy  sentence_00432_0_gen_ppg.npy  sentence_00756_0_gen_ppg.npy
+sentence_00109_0_gen_ppg.npy  sentence_00433_0_gen_ppg.npy  sentence_00757_0_gen_ppg.npy
+sentence_00110_0_gen_ppg.npy  sentence_00434_0_gen_ppg.npy  sentence_00758_0_gen_ppg.npy
+sentence_00111_0_gen_ppg.npy  sentence_00435_0_gen_ppg.npy  sentence_00759_0_gen_ppg.npy
+sentence_00112_0_gen_ppg.npy  sentence_00436_0_gen_ppg.npy  sentence_00760_0_gen_ppg.npy
+sentence_00113_0_gen_ppg.npy  sentence_00437_0_gen_ppg.npy  sentence_00761_0_gen_ppg.npy
+sentence_00114_0_gen_ppg.npy  sentence_00438_0_gen_ppg.npy  sentence_00762_0_gen_ppg.npy
+sentence_00115_0_gen_ppg.npy  sentence_00439_0_gen_ppg.npy  sentence_00763_0_gen_ppg.npy
+sentence_00116_0_gen_ppg.npy  sentence_00440_0_gen_ppg.npy  sentence_00764_0_gen_ppg.npy
+sentence_00117_0_gen_ppg.npy  sentence_00441_0_gen_ppg.npy  sentence_00765_0_gen_ppg.npy
+sentence_00118_0_gen_ppg.npy  sentence_00442_0_gen_ppg.npy  sentence_00766_0_gen_ppg.npy
+sentence_00119_0_gen_ppg.npy  sentence_00443_0_gen_ppg.npy  sentence_00767_0_gen_ppg.npy
+sentence_00120_0_gen_ppg.npy  sentence_00444_0_gen_ppg.npy  sentence_00768_0_gen_ppg.npy
+sentence_00121_0_gen_ppg.npy  sentence_00445_0_gen_ppg.npy  sentence_00769_0_gen_ppg.npy
+sentence_00122_0_gen_ppg.npy  sentence_00446_0_gen_ppg.npy  sentence_00770_0_gen_ppg.npy
+sentence_00123_0_gen_ppg.npy  sentence_00447_0_gen_ppg.npy  sentence_00771_0_gen_ppg.npy
+sentence_00124_0_gen_ppg.npy  sentence_00448_0_gen_ppg.npy  sentence_00772_0_gen_ppg.npy
+sentence_00125_0_gen_ppg.npy  sentence_00449_0_gen_ppg.npy  sentence_00773_0_gen_ppg.npy
+sentence_00126_0_gen_ppg.npy  sentence_00450_0_gen_ppg.npy  sentence_00774_0_gen_ppg.npy
+sentence_00127_0_gen_ppg.npy  sentence_00451_0_gen_ppg.npy  sentence_00775_0_gen_ppg.npy
+sentence_00128_0_gen_ppg.npy  sentence_00452_0_gen_ppg.npy  sentence_00776_0_gen_ppg.npy
+sentence_00129_0_gen_ppg.npy  sentence_00453_0_gen_ppg.npy  sentence_00777_0_gen_ppg.npy
+sentence_00130_0_gen_ppg.npy  sentence_00454_0_gen_ppg.npy  sentence_00778_0_gen_ppg.npy
+sentence_00131_0_gen_ppg.npy  sentence_00455_0_gen_ppg.npy  sentence_00779_0_gen_ppg.npy
+sentence_00132_0_gen_ppg.npy  sentence_00456_0_gen_ppg.npy  sentence_00780_0_gen_ppg.npy
+sentence_00133_0_gen_ppg.npy  sentence_00457_0_gen_ppg.npy  sentence_00781_0_gen_ppg.npy
+sentence_00134_0_gen_ppg.npy  sentence_00458_0_gen_ppg.npy  sentence_00782_0_gen_ppg.npy
+sentence_00135_0_gen_ppg.npy  sentence_00459_0_gen_ppg.npy  sentence_00783_0_gen_ppg.npy
+sentence_00136_0_gen_ppg.npy  sentence_00460_0_gen_ppg.npy  sentence_00784_0_gen_ppg.npy
+sentence_00137_0_gen_ppg.npy  sentence_00461_0_gen_ppg.npy  sentence_00785_0_gen_ppg.npy
+sentence_00138_0_gen_ppg.npy  sentence_00462_0_gen_ppg.npy  sentence_00786_0_gen_ppg.npy
+sentence_00139_0_gen_ppg.npy  sentence_00463_0_gen_ppg.npy  sentence_00787_0_gen_ppg.npy
+sentence_00140_0_gen_ppg.npy  sentence_00464_0_gen_ppg.npy  sentence_00788_0_gen_ppg.npy
+sentence_00141_0_gen_ppg.npy  sentence_00465_0_gen_ppg.npy  sentence_00789_0_gen_ppg.npy
+sentence_00142_0_gen_ppg.npy  sentence_00466_0_gen_ppg.npy  sentence_00790_0_gen_ppg.npy
+sentence_00143_0_gen_ppg.npy  sentence_00467_0_gen_ppg.npy  sentence_00791_0_gen_ppg.npy
+sentence_00144_0_gen_ppg.npy  sentence_00468_0_gen_ppg.npy  sentence_00792_0_gen_ppg.npy
+sentence_00145_0_gen_ppg.npy  sentence_00469_0_gen_ppg.npy  sentence_00793_0_gen_ppg.npy
+sentence_00146_0_gen_ppg.npy  sentence_00470_0_gen_ppg.npy  sentence_00794_0_gen_ppg.npy
+sentence_00147_0_gen_ppg.npy  sentence_00471_0_gen_ppg.npy  sentence_00795_0_gen_ppg.npy
+sentence_00148_0_gen_ppg.npy  sentence_00472_0_gen_ppg.npy  sentence_00796_0_gen_ppg.npy
+sentence_00149_0_gen_ppg.npy  sentence_00473_0_gen_ppg.npy  sentence_00797_0_gen_ppg.npy
+sentence_00150_0_gen_ppg.npy  sentence_00474_0_gen_ppg.npy  sentence_00798_0_gen_ppg.npy
+sentence_00151_0_gen_ppg.npy  sentence_00475_0_gen_ppg.npy  sentence_00799_0_gen_ppg.npy
+sentence_00152_0_gen_ppg.npy  sentence_00476_0_gen_ppg.npy  sentence_00800_0_gen_ppg.npy
+sentence_00153_0_gen_ppg.npy  sentence_00477_0_gen_ppg.npy  sentence_00801_0_gen_ppg.npy
+sentence_00154_0_gen_ppg.npy  sentence_00478_0_gen_ppg.npy  sentence_00802_0_gen_ppg.npy
+sentence_00155_0_gen_ppg.npy  sentence_00479_0_gen_ppg.npy  sentence_00803_0_gen_ppg.npy
+sentence_00156_0_gen_ppg.npy  sentence_00480_0_gen_ppg.npy  sentence_00804_0_gen_ppg.npy
+sentence_00157_0_gen_ppg.npy  sentence_00481_0_gen_ppg.npy  sentence_00805_0_gen_ppg.npy
+sentence_00158_0_gen_ppg.npy  sentence_00482_0_gen_ppg.npy  sentence_00806_0_gen_ppg.npy
+sentence_00159_0_gen_ppg.npy  sentence_00483_0_gen_ppg.npy  sentence_00807_0_gen_ppg.npy
+sentence_00160_0_gen_ppg.npy  sentence_00484_0_gen_ppg.npy  sentence_00808_0_gen_ppg.npy
+sentence_00161_0_gen_ppg.npy  sentence_00485_0_gen_ppg.npy  sentence_00809_0_gen_ppg.npy
+sentence_00162_0_gen_ppg.npy  sentence_00486_0_gen_ppg.npy  sentence_00810_0_gen_ppg.npy
+sentence_00163_0_gen_ppg.npy  sentence_00487_0_gen_ppg.npy  sentence_00811_0_gen_ppg.npy
+sentence_00164_0_gen_ppg.npy  sentence_00488_0_gen_ppg.npy  sentence_00812_0_gen_ppg.npy
+sentence_00165_0_gen_ppg.npy  sentence_00489_0_gen_ppg.npy  sentence_00813_0_gen_ppg.npy
+sentence_00166_0_gen_ppg.npy  sentence_00490_0_gen_ppg.npy  sentence_00814_0_gen_ppg.npy
+sentence_00167_0_gen_ppg.npy  sentence_00491_0_gen_ppg.npy  sentence_00815_0_gen_ppg.npy
+sentence_00168_0_gen_ppg.npy  sentence_00492_0_gen_ppg.npy  sentence_00816_0_gen_ppg.npy
+sentence_00169_0_gen_ppg.npy  sentence_00493_0_gen_ppg.npy  sentence_00817_0_gen_ppg.npy
+sentence_00170_0_gen_ppg.npy  sentence_00494_0_gen_ppg.npy  sentence_00818_0_gen_ppg.npy
+sentence_00171_0_gen_ppg.npy  sentence_00495_0_gen_ppg.npy  sentence_00819_0_gen_ppg.npy
+sentence_00172_0_gen_ppg.npy  sentence_00496_0_gen_ppg.npy  sentence_00820_0_gen_ppg.npy
+sentence_00173_0_gen_ppg.npy  sentence_00497_0_gen_ppg.npy  sentence_00821_0_gen_ppg.npy
+sentence_00174_0_gen_ppg.npy  sentence_00498_0_gen_ppg.npy  sentence_00822_0_gen_ppg.npy
+sentence_00175_0_gen_ppg.npy  sentence_00499_0_gen_ppg.npy  sentence_00823_0_gen_ppg.npy
+sentence_00176_0_gen_ppg.npy  sentence_00500_0_gen_ppg.npy  sentence_00824_0_gen_ppg.npy
+sentence_00177_0_gen_ppg.npy  sentence_00501_0_gen_ppg.npy  sentence_00825_0_gen_ppg.npy
+sentence_00178_0_gen_ppg.npy  sentence_00502_0_gen_ppg.npy  sentence_00826_0_gen_ppg.npy
+sentence_00179_0_gen_ppg.npy  sentence_00503_0_gen_ppg.npy  sentence_00827_0_gen_ppg.npy
+sentence_00180_0_gen_ppg.npy  sentence_00504_0_gen_ppg.npy  sentence_00828_0_gen_ppg.npy
+sentence_00181_0_gen_ppg.npy  sentence_00505_0_gen_ppg.npy  sentence_00829_0_gen_ppg.npy
+sentence_00182_0_gen_ppg.npy  sentence_00506_0_gen_ppg.npy  sentence_00830_0_gen_ppg.npy
+sentence_00183_0_gen_ppg.npy  sentence_00507_0_gen_ppg.npy  sentence_00831_0_gen_ppg.npy
+sentence_00184_0_gen_ppg.npy  sentence_00508_0_gen_ppg.npy  sentence_00832_0_gen_ppg.npy
+sentence_00185_0_gen_ppg.npy  sentence_00509_0_gen_ppg.npy  sentence_00833_0_gen_ppg.npy
+sentence_00186_0_gen_ppg.npy  sentence_00510_0_gen_ppg.npy  sentence_00834_0_gen_ppg.npy
+sentence_00187_0_gen_ppg.npy  sentence_00511_0_gen_ppg.npy  sentence_00835_0_gen_ppg.npy
+sentence_00188_0_gen_ppg.npy  sentence_00512_0_gen_ppg.npy  sentence_00836_0_gen_ppg.npy
+sentence_00189_0_gen_ppg.npy  sentence_00513_0_gen_ppg.npy  sentence_00837_0_gen_ppg.npy
+sentence_00190_0_gen_ppg.npy  sentence_00514_0_gen_ppg.npy  sentence_00838_0_gen_ppg.npy
+sentence_00191_0_gen_ppg.npy  sentence_00515_0_gen_ppg.npy  sentence_00839_0_gen_ppg.npy
+sentence_00192_0_gen_ppg.npy  sentence_00516_0_gen_ppg.npy  sentence_00840_0_gen_ppg.npy
+sentence_00193_0_gen_ppg.npy  sentence_00517_0_gen_ppg.npy  sentence_00841_0_gen_ppg.npy
+sentence_00194_0_gen_ppg.npy  sentence_00518_0_gen_ppg.npy  sentence_00842_0_gen_ppg.npy
+sentence_00195_0_gen_ppg.npy  sentence_00519_0_gen_ppg.npy  sentence_00843_0_gen_ppg.npy
+sentence_00196_0_gen_ppg.npy  sentence_00520_0_gen_ppg.npy  sentence_00844_0_gen_ppg.npy
+sentence_00197_0_gen_ppg.npy  sentence_00521_0_gen_ppg.npy  sentence_00845_0_gen_ppg.npy
+sentence_00198_0_gen_ppg.npy  sentence_00522_0_gen_ppg.npy  sentence_00846_0_gen_ppg.npy
+sentence_00199_0_gen_ppg.npy  sentence_00523_0_gen_ppg.npy  sentence_00847_0_gen_ppg.npy
+sentence_00200_0_gen_ppg.npy  sentence_00524_0_gen_ppg.npy  sentence_00848_0_gen_ppg.npy
+sentence_00201_0_gen_ppg.npy  sentence_00525_0_gen_ppg.npy  sentence_00849_0_gen_ppg.npy
+sentence_00202_0_gen_ppg.npy  sentence_00526_0_gen_ppg.npy  sentence_00850_0_gen_ppg.npy
+sentence_00203_0_gen_ppg.npy  sentence_00527_0_gen_ppg.npy  sentence_00851_0_gen_ppg.npy
+sentence_00204_0_gen_ppg.npy  sentence_00528_0_gen_ppg.npy  sentence_00852_0_gen_ppg.npy
+sentence_00205_0_gen_ppg.npy  sentence_00529_0_gen_ppg.npy  sentence_00853_0_gen_ppg.npy
+sentence_00206_0_gen_ppg.npy  sentence_00530_0_gen_ppg.npy  sentence_00854_0_gen_ppg.npy
+sentence_00207_0_gen_ppg.npy  sentence_00531_0_gen_ppg.npy  sentence_00855_0_gen_ppg.npy
+sentence_00208_0_gen_ppg.npy  sentence_00532_0_gen_ppg.npy  sentence_00856_0_gen_ppg.npy
+sentence_00209_0_gen_ppg.npy  sentence_00533_0_gen_ppg.npy  sentence_00857_0_gen_ppg.npy
+sentence_00210_0_gen_ppg.npy  sentence_00534_0_gen_ppg.npy  sentence_00858_0_gen_ppg.npy
+sentence_00211_0_gen_ppg.npy  sentence_00535_0_gen_ppg.npy  sentence_00859_0_gen_ppg.npy
+sentence_00212_0_gen_ppg.npy  sentence_00536_0_gen_ppg.npy  sentence_00860_0_gen_ppg.npy
+sentence_00213_0_gen_ppg.npy  sentence_00537_0_gen_ppg.npy  sentence_00861_0_gen_ppg.npy
+sentence_00214_0_gen_ppg.npy  sentence_00538_0_gen_ppg.npy  sentence_00862_0_gen_ppg.npy
+sentence_00215_0_gen_ppg.npy  sentence_00539_0_gen_ppg.npy  sentence_00863_0_gen_ppg.npy
+sentence_00216_0_gen_ppg.npy  sentence_00540_0_gen_ppg.npy  sentence_00864_0_gen_ppg.npy
+sentence_00217_0_gen_ppg.npy  sentence_00541_0_gen_ppg.npy  sentence_00865_0_gen_ppg.npy
+sentence_00218_0_gen_ppg.npy  sentence_00542_0_gen_ppg.npy  sentence_00866_0_gen_ppg.npy
+sentence_00219_0_gen_ppg.npy  sentence_00543_0_gen_ppg.npy  sentence_00867_0_gen_ppg.npy
+sentence_00220_0_gen_ppg.npy  sentence_00544_0_gen_ppg.npy  sentence_00868_0_gen_ppg.npy
+sentence_00221_0_gen_ppg.npy  sentence_00545_0_gen_ppg.npy  sentence_00869_0_gen_ppg.npy
+sentence_00222_0_gen_ppg.npy  sentence_00546_0_gen_ppg.npy  sentence_00870_0_gen_ppg.npy
+sentence_00223_0_gen_ppg.npy  sentence_00547_0_gen_ppg.npy  sentence_00871_0_gen_ppg.npy
+sentence_00224_0_gen_ppg.npy  sentence_00548_0_gen_ppg.npy  sentence_00872_0_gen_ppg.npy
+sentence_00225_0_gen_ppg.npy  sentence_00549_0_gen_ppg.npy  sentence_00873_0_gen_ppg.npy
+sentence_00226_0_gen_ppg.npy  sentence_00550_0_gen_ppg.npy  sentence_00874_0_gen_ppg.npy
+sentence_00227_0_gen_ppg.npy  sentence_00551_0_gen_ppg.npy  sentence_00875_0_gen_ppg.npy
+sentence_00228_0_gen_ppg.npy  sentence_00552_0_gen_ppg.npy  sentence_00876_0_gen_ppg.npy
+sentence_00229_0_gen_ppg.npy  sentence_00553_0_gen_ppg.npy  sentence_00877_0_gen_ppg.npy
+sentence_00230_0_gen_ppg.npy  sentence_00554_0_gen_ppg.npy  sentence_00878_0_gen_ppg.npy
+sentence_00231_0_gen_ppg.npy  sentence_00555_0_gen_ppg.npy  sentence_00879_0_gen_ppg.npy
+sentence_00232_0_gen_ppg.npy  sentence_00556_0_gen_ppg.npy  sentence_00880_0_gen_ppg.npy
+sentence_00233_0_gen_ppg.npy  sentence_00557_0_gen_ppg.npy  sentence_00881_0_gen_ppg.npy
+sentence_00234_0_gen_ppg.npy  sentence_00558_0_gen_ppg.npy  sentence_00882_0_gen_ppg.npy
+sentence_00235_0_gen_ppg.npy  sentence_00559_0_gen_ppg.npy  sentence_00883_0_gen_ppg.npy
+sentence_00236_0_gen_ppg.npy  sentence_00560_0_gen_ppg.npy  sentence_00884_0_gen_ppg.npy
+sentence_00237_0_gen_ppg.npy  sentence_00561_0_gen_ppg.npy  sentence_00885_0_gen_ppg.npy
+sentence_00238_0_gen_ppg.npy  sentence_00562_0_gen_ppg.npy  sentence_00886_0_gen_ppg.npy
+sentence_00239_0_gen_ppg.npy  sentence_00563_0_gen_ppg.npy  sentence_00887_0_gen_ppg.npy
+sentence_00240_0_gen_ppg.npy  sentence_00564_0_gen_ppg.npy  sentence_00888_0_gen_ppg.npy
+sentence_00241_0_gen_ppg.npy  sentence_00565_0_gen_ppg.npy  sentence_00889_0_gen_ppg.npy
+sentence_00242_0_gen_ppg.npy  sentence_00566_0_gen_ppg.npy  sentence_00890_0_gen_ppg.npy
+sentence_00243_0_gen_ppg.npy  sentence_00567_0_gen_ppg.npy  sentence_00891_0_gen_ppg.npy
+sentence_00244_0_gen_ppg.npy  sentence_00568_0_gen_ppg.npy  sentence_00892_0_gen_ppg.npy
+sentence_00245_0_gen_ppg.npy  sentence_00569_0_gen_ppg.npy  sentence_00893_0_gen_ppg.npy
+sentence_00246_0_gen_ppg.npy  sentence_00570_0_gen_ppg.npy  sentence_00894_0_gen_ppg.npy
+sentence_00247_0_gen_ppg.npy  sentence_00571_0_gen_ppg.npy  sentence_00895_0_gen_ppg.npy
+sentence_00248_0_gen_ppg.npy  sentence_00572_0_gen_ppg.npy  sentence_00896_0_gen_ppg.npy
+sentence_00249_0_gen_ppg.npy  sentence_00573_0_gen_ppg.npy  sentence_00897_0_gen_ppg.npy
+sentence_00250_0_gen_ppg.npy  sentence_00574_0_gen_ppg.npy  sentence_00898_0_gen_ppg.npy
+sentence_00251_0_gen_ppg.npy  sentence_00575_0_gen_ppg.npy  sentence_00899_0_gen_ppg.npy
+sentence_00252_0_gen_ppg.npy  sentence_00576_0_gen_ppg.npy  sentence_00900_0_gen_ppg.npy
+sentence_00253_0_gen_ppg.npy  sentence_00577_0_gen_ppg.npy  sentence_00901_0_gen_ppg.npy
+sentence_00254_0_gen_ppg.npy  sentence_00578_0_gen_ppg.npy  sentence_00902_0_gen_ppg.npy
+sentence_00255_0_gen_ppg.npy  sentence_00579_0_gen_ppg.npy  sentence_00903_0_gen_ppg.npy
+sentence_00256_0_gen_ppg.npy  sentence_00580_0_gen_ppg.npy  sentence_00904_0_gen_ppg.npy
+sentence_00257_0_gen_ppg.npy  sentence_00581_0_gen_ppg.npy  sentence_00905_0_gen_ppg.npy
+sentence_00258_0_gen_ppg.npy  sentence_00582_0_gen_ppg.npy  sentence_00906_0_gen_ppg.npy
+sentence_00259_0_gen_ppg.npy  sentence_00583_0_gen_ppg.npy  sentence_00907_0_gen_ppg.npy
+sentence_00260_0_gen_ppg.npy  sentence_00584_0_gen_ppg.npy  sentence_00908_0_gen_ppg.npy
+sentence_00261_0_gen_ppg.npy  sentence_00585_0_gen_ppg.npy  sentence_00909_0_gen_ppg.npy
+sentence_00262_0_gen_ppg.npy  sentence_00586_0_gen_ppg.npy  sentence_00910_0_gen_ppg.npy
+sentence_00263_0_gen_ppg.npy  sentence_00587_0_gen_ppg.npy  sentence_00911_0_gen_ppg.npy
+sentence_00264_0_gen_ppg.npy  sentence_00588_0_gen_ppg.npy  sentence_00912_0_gen_ppg.npy
+sentence_00265_0_gen_ppg.npy  sentence_00589_0_gen_ppg.npy  sentence_00913_0_gen_ppg.npy
+sentence_00266_0_gen_ppg.npy  sentence_00590_0_gen_ppg.npy  sentence_00914_0_gen_ppg.npy
+sentence_00267_0_gen_ppg.npy  sentence_00591_0_gen_ppg.npy  sentence_00915_0_gen_ppg.npy
+sentence_00268_0_gen_ppg.npy  sentence_00592_0_gen_ppg.npy  sentence_00916_0_gen_ppg.npy
+sentence_00269_0_gen_ppg.npy  sentence_00593_0_gen_ppg.npy  sentence_00917_0_gen_ppg.npy
+sentence_00270_0_gen_ppg.npy  sentence_00594_0_gen_ppg.npy  sentence_00918_0_gen_ppg.npy
+sentence_00271_0_gen_ppg.npy  sentence_00595_0_gen_ppg.npy  sentence_00919_0_gen_ppg.npy
+sentence_00272_0_gen_ppg.npy  sentence_00596_0_gen_ppg.npy  sentence_00920_0_gen_ppg.npy
+sentence_00273_0_gen_ppg.npy  sentence_00597_0_gen_ppg.npy  sentence_00921_0_gen_ppg.npy
+sentence_00274_0_gen_ppg.npy  sentence_00598_0_gen_ppg.npy  sentence_00922_0_gen_ppg.npy
+sentence_00275_0_gen_ppg.npy  sentence_00599_0_gen_ppg.npy  sentence_00923_0_gen_ppg.npy
+sentence_00276_0_gen_ppg.npy  sentence_00600_0_gen_ppg.npy  sentence_00924_0_gen_ppg.npy
+sentence_00277_0_gen_ppg.npy  sentence_00601_0_gen_ppg.npy  sentence_00925_0_gen_ppg.npy
+sentence_00278_0_gen_ppg.npy  sentence_00602_0_gen_ppg.npy  sentence_00926_0_gen_ppg.npy
+sentence_00279_0_gen_ppg.npy  sentence_00603_0_gen_ppg.npy  sentence_00927_0_gen_ppg.npy
+sentence_00280_0_gen_ppg.npy  sentence_00604_0_gen_ppg.npy  sentence_00928_0_gen_ppg.npy
+sentence_00281_0_gen_ppg.npy  sentence_00605_0_gen_ppg.npy  sentence_00929_0_gen_ppg.npy
+sentence_00

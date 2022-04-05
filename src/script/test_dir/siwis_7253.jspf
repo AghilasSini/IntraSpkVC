@@ -1,0 +1,3 @@
+#JSGF V1.0;
+grammar utt;
+public <phonemes> =  sil tt [ sil ] rr [ sil ] ai [ sil ] bb [ sil ] yy [ sil ] in [ sil ] vv [ sil ] ou [ sil ] zz [ sil ] ai [ sil ] pp [ sil ] ou [ sil ] rr [ sil ];

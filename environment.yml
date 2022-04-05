@@ -1,0 +1,10 @@
+name: ppg-speech-cvc2
+channels:
+  - pytorch
+  - pykaldi
+  - anaconda
+  - conda-forge
+  - defaults
+dependencies:
+  - ca-certificates=2019.5.15=1
+  - certifi=2019.6.16=py37_1
