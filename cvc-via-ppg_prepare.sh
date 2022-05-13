@@ -17,19 +17,19 @@ export PYTHONPATH=$PROJECT_ROOT_DIR/src:$PYTHONPATH
 
 
 
-cd ${KALDI_PATH}
+#cd ${KALDI_PATH}
 
 
-. ./path
-
-
-
+#. ./path
 
 
 
-cd $PROJECT_ROOT_DIR
 
-conda activate ${ENV_CONDA}
+
+
+#cd $PROJECT_ROOT_DIR
+
+#conda activate ${ENV_CONDA}
 
 
 
@@ -47,7 +47,7 @@ spk=${3}
 if test "$#" -ne 3; then 
 	echo "##########################"
 	echo "Usage:"
-	echo "./forcedAlignment.sh <wav_dir> <out_dir> <spk_id> "
+	echo "./cvc-via-ppg_prepare.sh <wav_dir> <out_dir> <spk_id> "
 	exit 1
 fi
 
@@ -59,6 +59,6 @@ fi
 
 # prepare data used for extracting ppg
 echo "prepare data for ${spk}"
-# python -u ./src/common/gen_train_val_txt.py $Wav_dir $Out_dir $spk
-# echo "PPG extraction data preparation 1st step is done"
+python -u ./src/common/gen_train_val_txt.py $Wav_dir $Out_dir $spk
+echo "PPG extraction data preparation 1st step is done"
 python -u ./src/script/extract_ppg.py ${spk}

@@ -17,6 +17,7 @@ from common.utterance import Utterance,numpy_to_mat
 #from common.data_utils import get_ppg,utt_to_sequence
 
 from ppg import compute_full_ppg_chain,reduce_ppg_dim,compute_full_ppg_softmax
+from ppg import compute_gpg
 
 from kaldi.base.io import ofstream
 
