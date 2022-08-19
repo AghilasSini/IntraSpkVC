@@ -32,8 +32,10 @@
 """Modified from https://github.com/NVIDIA/tacotron2"""
 
 import os
+import sys
 import time
 import math
+import numpy as np
 from numpy import finfo
 import torch
 import torch.distributed as dist
@@ -44,8 +46,16 @@ from common.model import Tacotron2
 from common.data_utils import PPGMelLoader, ppg_acoustics_collate
 from common.loss_function import Tacotron2Loss
 from common.logger import Tacotron2Logger
-from common.hparams import create_hparams
+
+from common.hparams import HParamsView
+
+# from common.hparams import create_hparams
 from pprint import pprint
+
+
+import logging
+
+
 
 
 def batchnorm_to_float(module):
@@ -92,7 +102,7 @@ def prepare_dataloaders(hparams):
     train_sampler = DistributedSampler(trainset) \
         if hparams.distributed_run else None
 
-    train_loader = DataLoader(trainset, num_workers=1, shuffle=True,
+    train_loader = DataLoader(trainset, num_workers=6, shuffle=True,
                               sampler=train_sampler,
                               batch_size=hparams.batch_size, pin_memory=False,
                               drop_last=True, collate_fn=collate_fn)
@@ -112,6 +122,14 @@ def prepare_directories_and_logger(output_directory, log_directory, rank):
 
 def load_model(hparams):
     model = Tacotron2(hparams).cuda()
+    if hparams.fp16_run:
+        model = batchnorm_to_float(model.half())
+        model.decoder.attention_layer.score_mask_value = float(finfo('float16').min)
+
+    return model
+
+def load_model_cpu(hparams):
+    model = Tacotron2(hparams)
     if hparams.fp16_run:
         model = batchnorm_to_float(model.half())
         model.decoder.attention_layer.score_mask_value = float(finfo('float16').min)
@@ -174,8 +192,8 @@ def validate(model, criterion, valset, iteration, batch_size, n_gpus,
     model.train()
     if rank == 0:
         print("Validation loss {}: {:9f}  ".format(iteration, val_loss))
-        #logger.log_validation(val_loss, model, y, y_pred, iteration)
-
+        # logger.log_validation(val_loss, model, y, y_pred, iteration)
+    return val_loss
 
 def train(output_directory, log_directory, checkpoint_path, warm_start, n_gpus,
           rank, group_name, hparams):
@@ -227,10 +245,12 @@ def train(output_directory, log_directory, checkpoint_path, warm_start, n_gpus,
 
     model.train()
     #y_pred = torch.tensor([1., 100.]).cuda()
-
+    min_valid_loss = np.inf
+    reduced_loss=np.inf
+    it_wo_progress=0
     # ================ MAIN TRAINNIG LOOP! ===================
     for epoch in range(epoch_offset, hparams.epochs):
-        print("Epoch: {}".format(epoch))
+        print("Epoch {} \t\t Training Loss: {:.3f} ".format(epoch,reduced_loss))
         for i, batch in enumerate(train_loader):
             start = time.perf_counter()
             for param_group in optimizer.param_groups:
@@ -267,23 +287,55 @@ def train(output_directory, log_directory, checkpoint_path, warm_start, n_gpus,
                     reduced_loss, grad_norm, learning_rate, duration, iteration)
 
             if not overflow and (iteration % hparams.iters_per_checkpoint == 0):
-                validate(model, criterion, valset, iteration,
+                valid_loss=validate(model, criterion, valset, iteration,
                          hparams.batch_size, n_gpus, collate_fn, logger,
                          hparams.distributed_run, rank)
-                if rank == 0:
+                if rank == 0 and min_valid_loss > valid_loss:
+                    print("Validation Loss Decreased( {:.3f} ---> {:.3f} ) \t Saving The Model".format(min_valid_loss,valid_loss))
+                    min_valid_loss = valid_loss
                     checkpoint_path = os.path.join(
                         output_directory, "checkpoint_{}".format(iteration))
                     save_checkpoint(model, optimizer, learning_rate, iteration,
                                     checkpoint_path)
+                    # reinitialize " without progress iterator"--> it_wo_progress 
+                    it_wo_progress=0
+                elif rank == 0 and it_wo_progress==10:
+                    print("Early Halt Training Cause / No significant Progress {:.3f} ---> {:.3f} \t\t training Loss {:.3f}".format(min_valid_loss,valid_loss,reduced_loss))
+                    print("The best model is saved in {} ".format(checkpoint_path))
+                    sys.exit(0)
+                else:
+                    print("Validation Loss Increase( {:.3f} ---> {:.3f} | Train loss {:.3f}   ) \t No need to save the model ".format(min_valid_loss,valid_loss,reduced_loss))
+
+                    it_wo_progress+=1
 
             iteration += 1
             del x, y, y_pred
             torch.cuda.empty_cache()
+        
+
+
+import argparse
+import json
+def parser_build():
+    parser = argparse.ArgumentParser(description="training arguments ")
+    parser.add_argument('hparams_fpath', type=str, help='hparams json file ')
+    return parser.parse_args()
 
 
 if __name__ == '__main__':
-    hparams = create_hparams()
 
+    args=parser_build()
+    hparams_fpath=args.hparams_fpath
+    
+
+
+    if os.path.exists(hparams_fpath):
+        with open(hparams_fpath) as infile:
+            hparams_file=json.load(infile)
+    else:
+        sys.exit(0)
+
+    hparams=HParamsView(hparams_file)
     if not hparams.output_directory:
         raise FileExistsError('Please specify the output dir.')
     else:
@@ -291,8 +343,8 @@ if __name__ == '__main__':
             os.mkdir(hparams.output_directory)
 
     # Record the hyper-parameters.
-    hparams_snapshot_file = os.path.join(hparams.output_directory,
-                                         'hparams.txt')
+    hparams_snapshot_file = os.path.join(hparams.output_directory,'hparams.txt')
+    print(hparams_snapshot_file)
     with open(hparams_snapshot_file, 'w') as writer:
         pprint(hparams.__dict__, writer)
 

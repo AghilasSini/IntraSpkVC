@@ -115,23 +115,6 @@ def compute_full_ppg_softmax (nnet: Nnet, feats, ivectors):
     #return full_ppg
 
 
-
-def compute_gpg(args):
-    sample, model_name,out_dir_path=args
-    processor = Wav2Vec2Processor.from_pretrained(model_name)
-    model = Wav2Vec2ForCTC.from_pretrained(model_name)
-    speech, sample_rate = sf.read(sample)
-    if sample_rate!=16000:
-        speech = librosa.resample(speech, sample_rate, 16000)
-    input_values = processor(speech, sampling_rate=16000, return_tensors="pt").input_values
-    logits = model(input_values).logits
-    gpg = torch.nn.functional.softmax(logits, dim=-1)
-    output_full_path=os.path.join(out_dir_path,"{}_gpg.npy".format(sample))
-    np.save(output_full_path, gpg)
-
-    return gpg
-
-
 def compute_full_ppg_chain(nnet: Nnet, feats) -> Matrix:
     """Compute full PPG features given appropriate input features.
 
@@ -162,16 +145,6 @@ def compute_full_ppg_chain(nnet: Nnet, feats) -> Matrix:
         nnet_computer.get_output_for_frame(i, temp)
         raw_ppgs.copy_row_from_vec_(temp, i)
     return raw_ppgs.apply_exp_()
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -1,4 +1,4 @@
-name: ppg-speech
+name: ppg_vc_env
 channels:
   - pytorch
   - pykaldi
@@ -100,5 +100,4 @@ dependencies:
   - pip:
     - textgrid==1.4
     - torch==1.0.0
-prefix: /home/guanlong/anaconda2/envs/ppg-speech
 

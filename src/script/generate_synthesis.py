@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from common.data_utils import get_ppg
-from common.hparams import create_hparams_stage
+from common.hparams import create_hparams_stage,HParamsView
 from common.layers import TacotronSTFT
 from common.utils import waveglow_audio, get_inference, load_waveglow_model
 from scipy.io import wavfile
@@ -25,7 +25,7 @@ import os
 import ppg
 import torch
 import numpy as np
-
+import json
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
@@ -41,6 +41,8 @@ if __name__ == '__main__':
                         help='Output dir, will save the audio and log info.')
     parser.add_argument('--extract_mel', type=bool, required=False,
                         help='Save or not converted mel-spectrogram to output folder.')
+    parser.add_argument('--hparams', type=str, required=False,
+                        help='hyper-parameters json file')
     args = parser.parse_args()
 
     # Prepare dirs
@@ -56,9 +58,10 @@ if __name__ == '__main__':
     checkpoint_path = args.ppg2mel_model
     waveglow_path = args.waveglow_model
     is_clip = False  # Set to True to control the output length of AC.
-    fs = 16000
-    waveglow_sigma = 0.6
+    fs = 22050
+    waveglow_sigma = 1.0
     waveglow_for_denoiser = torch.load(waveglow_path)['model']
+
     waveglow_for_denoiser.cuda()
     denoiser_mode = 'zeros'
     denoiser = Denoiser(waveglow_for_denoiser, mode=denoiser_mode)
@@ -73,40 +76,43 @@ if __name__ == '__main__':
     logging.debug('Sigma: %f', waveglow_sigma)
     logging.debug('Denoiser strength: %f', denoiser_strength)
     logging.debug('Denoiser mode: %s', denoiser_mode)
-
-    hparams = create_hparams_stage()
+    with open(args.hparams,'r') as hpFile:
+        hparams = HParamsView(json.load(hpFile))
     taco_stft = TacotronSTFT(
         hparams.filter_length, hparams.hop_length, hparams.win_length,
         hparams.n_acoustic_feat_dims, hparams.sampling_rate,
         hparams.mel_fmin, hparams.mel_fmax)
 
-    # Load models.
+    # # Load models.
     tacotron_model = load_model(hparams)
     tacotron_model.load_state_dict(torch.load(checkpoint_path)['state_dict'])
     _ = tacotron_model.eval()
     waveglow_model = load_waveglow_model(waveglow_path)
 
-    #deps = ppg.DependenciesPPG()
+    # #deps = ppg.DependenciesPPG()
 
     if os.path.isfile(teacher_utt_path):
         logging.info('Perform AC on %s', teacher_utt_path)
         #teacher_ppg = get_ppg(teacher_utt_path, deps)
         teacher_ppg = np.load(teacher_utt_path)
         
-        
+        gen_mel_filename=os.path.basename(teacher_utt_path).split('.')[0]
         ac_mel = get_inference(teacher_ppg, tacotron_model, is_clip)
-        
+        print(gen_mel_filename)
         if args.extract_mel:
-            np.save(os.path.join(output_dir, 'conv_mel.npy'), ac_mel.cpu().detach())
+            outFilename=os.path.join(output_dir, '{}2mel.pt'.format(gen_mel_filename))
+            print(outFilename,ac_mel.cpu()[0].shape)
+            torch.save(ac_mel.cpu()[0],outFilename)
+            # .cpu()
         
-        ac_wav = waveglow_audio(ac_mel, waveglow_model,
-                                waveglow_sigma, True)
-        ac_wav = denoiser(
-            ac_wav, strength=denoiser_strength)[:, 0].cpu().numpy().T
+        # ac_wav = waveglow_audio(ac_mel, waveglow_model,
+        #                         waveglow_sigma, True)
+        # ac_wav = denoiser(
+        #     ac_wav, strength=denoiser_strength)[:, 0].cpu().numpy().T
 
-        output_file = os.path.join(output_dir, 'ac.wav')
-        wavfile.write(output_file, fs, ac_wav)
+        # output_file = os.path.join(output_dir, '{}_ac.wav'.format(gen_mel_filename))
+        # wavfile.write(output_file, fs, ac_wav)
     else:
         logging.warning('Missing %s', teacher_utt_path)
 
-    logging.info('Done!')
+    # logging.info('Done!')

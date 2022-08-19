@@ -45,7 +45,7 @@ from scipy.io import wavfile
 from common import feat
 from common import ppg
 
-
+import os
 # First order, dx(t) = 0.5(x(t + 1) - x(t - 1))
 DELTA_WIN = [0, -0.5, 0.0, 0.5, 0]
 # Second order, ddx(t) = 0.5(dx(t + 1) - dx(t - 1)) = 0.25(x(t + 2) - 2x(t)
@@ -188,6 +188,8 @@ class PPGMelLoader(torch.utils.data.Dataset):
         self.load_feats_from_disk = hparams.load_feats_from_disk
         self.feats_cache_path = hparams.feats_cache_path
         self.ppg_subsampling_factor = hparams.ppg_subsampling_factor
+        self.ppg_fpath=hparams.ppg_fdir
+        self.mel_fpath=hparams.mel_fdir
         #self.ppg_deps = DependenciesPPG()												# HERE
 
         if self.is_cache_feats and self.load_feats_from_disk:
@@ -236,47 +238,98 @@ class PPGMelLoader(torch.utils.data.Dataset):
         Returns:
             feat_pairs: A list, each is a [pps, mel] pair.
         """
-        utt = Utterance()
+        # utt = Utterance()
         fs, wav = wavfile.read(data_utterance_path)
-        utt.fs = fs
-        utt.wav = wav
+        # utt.fs = fs
+        # utt.wav = wav
         #utt.ppg = get_ppg(data_utterance_path, self.ppg_deps)
 	##TODO get_ppg_chain
         #print(data_utterance_path)
 	
         ppg_mat = FloatMatrix()
-        npppg = np.load(data_utterance_path.split('.')[0].replace('/wav/', '/ppg/') + "_ppg.npy")
-        #numpy_to_mat(npppg, ppg_mat)
-        utt.ppg = npppg
-		
-        audio = torch.FloatTensor(utt.wav.astype(np.float32))
-        fs = utt.fs
 
-        if fs != self.stft.sampling_rate:
-            raise ValueError("{} SR doesn't match target {} SR".format(
-                fs, self.stft.sampling_rate))
-        audio_norm = audio / self.max_wav_value
-        audio_norm = audio_norm.unsqueeze(0)
-        audio_norm = torch.autograd.Variable(audio_norm, requires_grad=False)
-        # (1, n_mel_channels, T)
-        acoustic_feats = self.stft.mel_spectrogram(audio_norm)
-        # (n_mel_channels, T)
-        acoustic_feats = torch.squeeze(acoustic_feats, 0)
-        # (T, n_mel_channels)
-        acoustic_feats = acoustic_feats.transpose(0, 1)
-        #print(acoustic_feats)
+        utt_filename=os.path.splitext(os.path.basename(data_utterance_path))[0]
+
+
+
+
+        ppg_fpath=os.path.join(self.ppg_fpath,utt_filename+"_ppg.npy")
+        
+        np_ppg = np.load(ppg_fpath)
+
+        mel_fpath=os.path.join(self.mel_fpath,utt_filename+".wav.pt")
+        acoustic_feats=torch.load(mel_fpath).T
+        # with open(mel_fpath,'rb') as melFile:
+        #     acoustic_feats=pickle.load(melFile)
+
+ #        print(" acoustic  file name {} feats size  {} ppg file {} size {}".format(os.path.basename(mel_fpath),acoustic_feats.shape,os.path.basename(ppg_fpath),np_ppg.shape))
+
+
+        # numpy_to_mat(np_ppg, ppg_mat)
+        # utt.ppg = npppg
+		
+    # def extract_utterance_feats(self, data_utterance_path, is_full_ppg=False):
+    #     """Get PPG and Mel (+ optional F0) for an utterance.
+    #     Args:
+    #         data_utterance_path: The path to the data utterance protocol buffer.
+    #         is_full_ppg: If True, will use the full PPGs.
+    #     Returns:
+    #         feat_pairs: A list, each is a [pps, mel] pair.
+    #     """
+    #     utt = Utterance()
+    #     fs, wav = wavfile.read(data_utterance_path)
+    #     utt.fs = fs
+    #     utt.wav = wav
+    #     #utt.ppg = get_ppg(data_utterance_path, self.ppg_deps)
+    # ##TODO get_ppg_chain
+    #     #print(data_utterance_path)
+    
+    #     ppg_mat = FloatMatrix()
+        
+    #     utt_filename=os.path.splitext(os.path.basename(data_utterance_path))[0]
+
+
+
+
+    #     ppg_fpath=os.path.join(self.ppg_fpath,utt_filename+"_ppg.npy")
+        
+    #     np_ppg = np.load(ppg_fpath)
+    #     #numpy_to_mat(npppg, ppg_mat)
+          # utt.ppg = np_ppg
+        
+    #     audio = torch.FloatTensor(utt.wav.astype(np.float32))
+    #     fs = utt.fs
+
+    #     if fs != self.stft.sampling_rate:
+    #         raise ValueError("{} SR doesn't match target {} SR".format(
+    #             fs, self.stft.sampling_rate))
+    #     audio_norm = audio / self.max_wav_value
+    #     audio_norm = audio_norm.unsqueeze(0)
+    #     audio_norm = torch.autograd.Variable(audio_norm, requires_grad=False)
+    #     # (1, n_mel_channels, T)
+    #     acoustic_feats = self.stft.mel_spectrogram(audio_norm)
+    #     # (n_mel_channels, T)
+    #     acoustic_feats = torch.squeeze(acoustic_feats, 0)
+    #     # (T, n_mel_channels)
+    #     acoustic_feats = acoustic_feats.transpose(0, 1)
+    #     #print(acoustic_feats)
         if is_full_ppg:
             if self.is_append_f0:
-                ppg_f0 = append_ppg(utt.ppg, utt.f0)
+                ppg_f0 = append_ppg(np_ppg, utt.f0)
                 return [ppg_f0, acoustic_feats]
             else:
-                return [utt.ppg, acoustic_feats]
+                return [np_ppg, acoustic_feats]
         else:
             if self.is_append_f0:
                 ppg_f0 = append_ppg(utt.monophone_ppg, utt.f0)
                 return [ppg_f0, acoustic_feats]
             else:
                 return [utt.monophone_ppg, acoustic_feats]
+
+
+
+
+        
 
     def __getitem__(self, index):
         """Get a new data sample in torch.float32 format.

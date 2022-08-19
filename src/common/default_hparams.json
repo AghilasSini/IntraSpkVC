@@ -1,0 +1,81 @@
+{
+  
+        "epochs": 1000,
+        "iters_per_checkpoint": 1000,
+        "seed": 16807,
+        "dynamic_loss_scaling": true,
+        "fp16_run": false,
+        "distributed_run": false,
+        "dist_backend": "nccl",
+        "dist_url": "tcp://localhost:54321",
+        "cudnn_enabled": true,
+        "cudnn_benchmark": false,
+        "output_directory": "/gpfsscratch/rech/eyy/uyk62ct/data/data_fr/output/InterSpeaker/FFR0009",  
+        "log_directory": "/gpfsscratch/rech/eyy/uyk62ct/data/data_fr/log/InterSpeaker/ffr0009",
+        "checkpoint_path": "",  
+        "warm_start": false,  
+        "n_gpus": 1,  
+        "rank": 0,  
+        "group_name": "group_name",  
+
+   
+        "training_files": "/gpfsscratch/rech/eyy/uyk62ct/data/data_fr/filelists/InterSpeaker/FFR0009/training_set.txt",
+        
+        "validation_files": "/gpfsscratch/rech/eyy/uyk62ct/data/data_fr/filelists/InterSpeaker/FFR0009/validation_set.txt",
+        "is_full_ppg": true,  
+        "is_append_f0": false,  
+        "ppg_subsampling_factor": 1,  
+        
+        "load_feats_from_disk": false,  
+        "is_cache_feats": false,
+        "feats_cache_path": "",
+
+       
+        "max_wav_value": 32768.0,
+        "sampling_rate": 22050,
+        "n_acoustic_feat_dims": 80,
+        "filter_length": 1024,
+        "hop_length": 222,
+        "win_length": 1024,
+        "mel_fmin": 0.0,
+        "mel_fmax": 8000.0,
+
+        
+        "n_symbols": 3536,
+        "symbols_embedding_dim":600,
+
+        
+        "encoder_kernel_size": 5,
+        "encoder_n_convolutions": 3,
+        "encoder_embedding_dim": 600,
+
+        "decoder_rnn_dim": 300,
+        "prenet_dim": 300,
+        "max_decoder_steps": 1000,
+        "gate_threshold": 0.5,
+        "p_attention_dropout": 0.1,
+        "p_decoder_dropout": 0.1,
+
+        "attention_rnn_dim": 300,
+        "attention_dim": 150,
+      
+        "attention_window_size": 20,
+
+     
+        "attention_location_n_filters": 32,
+        "attention_location_kernel_size":31,
+
+        "postnet_embedding_dim": 512,
+        "postnet_kernel_size": 5,
+        "postnet_n_convolutions": 5,
+
+    
+        "use_saved_learning_rate": false,
+        "learning_rate": 1e-3,
+        "weight_decay": 1e-6,
+        "grad_clip_thresh": 1.0,
+        "batch_size": 6,
+        "mask_padding": true, 
+        "mel_weight": 1,
+        "gate_weight": 0.005
+    }

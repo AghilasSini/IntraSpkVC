@@ -45,7 +45,7 @@ def create_hparams(**kwargs):
         # Experiment Parameters        #
         ################################
         "epochs": 1000,
-        "iters_per_checkpoint": 200,
+        "iters_per_checkpoint": 1000,
         "seed": 16807,
         "dynamic_loss_scaling": True,
         "fp16_run": False,
@@ -54,11 +54,10 @@ def create_hparams(**kwargs):
         "dist_url": "tcp://localhost:54321",
         "cudnn_enabled": True,
         "cudnn_benchmark": False,
-        "output_directory": '/vrac/tgaudier/cvc-via-ppg/output',  # Directory to save checkpoints.
+        "output_directory": '/gpfsscratch/rech/eyy/uyk62ct/data/data_fr/output/InterSpeaker/FFR0009',  # Directory to save checkpoints.
         # Directory to save tensorboard logs. Just keep it like this.
-        "log_directory": '/vrac/tgaudier/cvc-via-ppg/log',
-#        "checkpoint_path": '/vrac/tgaudier/cvc-via-ppg/output/checkpoint_2200',  # Path to a checkpoint file.
-        "checkpoint_path": '',
+        "log_directory": '/gpfsscratch/rech/eyy/uyk62ct/data/data_fr/log/InterSpeaker/ffr0009',
+        "checkpoint_path": '',  # Path to a checkpoint file.
         "warm_start": False,  # Load the model only (warm start)
         "n_gpus": 1,  # Number of GPUs
         "rank": 0,  # Rank of current gpu
@@ -69,10 +68,10 @@ def create_hparams(**kwargs):
         ################################
         # Passed as a txt file, see data/filelists/training-set.txt for an
         # example.
-        "training_files": '/vrac/tgaudier/cvc-via-ppg/data_fr/filelists/training_set.txt',
+        "training_files": '/gpfsscratch/rech/eyy/uyk62ct/data/data_fr/filelists/InterSpeaker/FFR0009/training_set.txt',
         # Passed as a txt file, see data/filelists/validation-set.txt for an
         # example.
-        "validation_files": '/vrac/tgaudier/cvc-via-ppg/data_fr/filelists/validation_set.txt',
+        "validation_files": '/gpfsscratch/rech/eyy/uyk62ct/data/data_fr/filelists/InterSpeaker/FFR0009/validation_set.txt',
         "is_full_ppg": True,  # Whether to use the full PPG or not.
         "is_append_f0": False,  # Currently only effective at sentence level
         "ppg_subsampling_factor": 1,  # Sub-sample the ppg & acoustic sequence.
@@ -92,10 +91,10 @@ def create_hparams(**kwargs):
         # Audio Parameters             #
         ################################
         "max_wav_value": 32768.0,
-        "sampling_rate": 16000,
+        "sampling_rate": 22050,
         "n_acoustic_feat_dims": 80,
         "filter_length": 1024,
-        "hop_length": 160,
+        "hop_length": 222,
         "win_length": 1024,
         "mel_fmin": 0.0,
         "mel_fmax": 8000.0,
@@ -104,7 +103,7 @@ def create_hparams(**kwargs):
         # Model Parameters             #
         ################################
         "n_symbols": 3536,
-        "symbols_embedding_dim": 600,
+        "symbols_embedding_dim":600,
 
         # Encoder parameters
         "encoder_kernel_size": 5,
@@ -128,7 +127,7 @@ def create_hparams(**kwargs):
 
         # Location Layer parameters
         "attention_location_n_filters": 32,
-        "attention_location_kernel_size": 31,
+        "attention_location_kernel_size":31,
 
         # Mel-post processing network parameters
         "postnet_embedding_dim": 512,
@@ -139,10 +138,10 @@ def create_hparams(**kwargs):
         # Optimization Hyperparameters #
         ################################
         "use_saved_learning_rate": False,
-        "learning_rate": 1e-5,
+        "learning_rate": 1e-3,
         "weight_decay": 1e-6,
         "grad_clip_thresh": 1.0,
-        "batch_size": 12,
+        "batch_size": 6,
         "mask_padding": True,  # set model's padded outputs to padded values
         "mel_weight": 1,
         "gate_weight": 0.005
@@ -191,7 +190,7 @@ def create_hparams_stage(**kwargs):
         'gate_weight': 0.005,
         'grad_clip_thresh': 1.0,
         'group_name': 'group_name',
-        'hop_length': 160,
+        'hop_length': 222,
         'is_append_f0': False,
         'is_cache_feats': False,
         'is_full_ppg': True,
@@ -220,7 +219,7 @@ def create_hparams_stage(**kwargs):
         'ppg_subsampling_factor': 1,
         'prenet_dim': 300,
         'rank': 0,
-        'sampling_rate': 16000,
+        'sampling_rate': 22050,
         'seed': 16807,
         'sequence_level': 'sentence',
         'symbols_embedding_dim': 600,

@@ -1,20 +1,20 @@
 {
     "train_config": {
-        "output_directory": "",
+        "output_directory": "/vrac/asini/workspace/voice_conversion/IntraSpkVC/data_fr/vocoder",
         "epochs": 10000,
-        "learning_rate": 1e-5,
-        "sigma": 0.7071,
+        "learning_rate": 1e-4,
+        "sigma": 1,
         "iters_per_checkpoint": 2500,
-        "batch_size": 3,
+        "batch_size": 12,
         "seed": 16807,
-        "checkpoint_path": ""
+        "checkpoint_path":"/vrac/software/waveglow/waveglow_256channels_universal_v5.pt"
     },
     "data_config": {
-        "training_files":"",
+        "training_files":"/vrac/asini/workspace/voice_conversion/IntraSpkVC/data_fr/filelists/SiwisFrench/training_set.txt",
         "segment_length": 10000,
-        "sampling_rate": 16000,
+        "sampling_rate": 22050,
         "filter_length": 1024,
-        "hop_length": 160,
+        "hop_length": 221,
         "win_length": 1024,
         "mel_fmin": 0.0,
         "mel_fmax": 8000.0
@@ -28,7 +28,6 @@
 
     "waveglow_config": {
         "n_mel_channels": 80,
-        "hop_length": 160,
         "n_flows": 12,
         "n_group": 8,
         "n_early_every": 4,
