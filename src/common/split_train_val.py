@@ -33,6 +33,7 @@ class DataPrepare(object):
 			train_size=self.generate_training_validation_txt (list_valid_list)
 			self.generate_spk2utt(list_valid_list)
 			self.generate_wav_scp(list_valid_list)
+			self.generate_wav_list(list_valid_list)
 			self.update_default_hparams(model_output_dir,train_size)
 		else:
 			print("something wrong")
@@ -85,6 +86,12 @@ class DataPrepare(object):
 			for elt in list_valid_list:
 				name = os.path.basename(elt.split(".wav")[0])
 				wav_file.write(name + " " + elt + "\n")
+
+	def generate_wav_list(self,list_valid_list):
+		dest=os.path.join(self.output_dir_fpath,"file_id_wav.scp")
+		with open(dest, "w") as wav_file:
+			for elt in list_valid_list:
+				wav_file.write("{}\n".format(elt))
 
 	def update_default_hparams(self,model_output_dir,train_set_size,n_symbols=3536,is_finetuning=False, checkpoint_path=None):
 		

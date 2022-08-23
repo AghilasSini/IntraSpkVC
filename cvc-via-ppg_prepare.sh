@@ -24,10 +24,11 @@ cd ${KALDI_PATH}
 
 
 
+# Features extraction
 
 cd $PROJECT_ROOT_DIR
 
-
+export PYTHONPATH=$PROJECT_ROOT_DIR/src:$PYTHONPATH
 
 
 protoc -I=src/common --python_out=src/common src/common/data_utterance.proto
@@ -65,10 +66,8 @@ config_fpath=/vrac/asini/workspace/voice_conversion/IntraSpkVC/src/waveglow/conf
 echo "prepare data for ${spk}"
 python -u ./src/common/split_train_val.py $Wav_dir $Out_dir $Model_dir $spk --hparams ${PROJECT_ROOT_DIR}/data_fr/default_hparams.json
 echo "PPG extraction data preparation 1st step is done"
-#python -u ./src/script/extract_ppg.py ${spk}
+python -u ./src/script/extract_ppg.py ${spk}
 echo "Extract acoustic features MelSpectrogram"
-#python -u ./src/script/extract_feats.py ${Out_dir}/${spk}/wav.scp  ${Out_dir}/${spk}/hparams.json $PROJECT_ROOT_DIR/data_fr/mel/${spk}
-ls  /vrac/mufasa/v0/utt/${spk}/*.wav >${PROJECT_ROOT_DIR}/data_fr/filelists/${spk}/file_id_wav.scp
-
+#ls  ${PROJECT_ROOT_DIR}/data_fr/wav/${spk}/*.wav >${PROJECT_ROOT_DIR}/data_fr/filelists/${spk}/file_id_wav.scp
 file_wav_list=${PROJECT_ROOT_DIR}/data_fr/filelists/${spk}/file_id_wav.scp
 python ./src/waveglow/mel2samp.py -f ${file_wav_list} -c ${config_fpath} -o ${PROJECT_ROOT_DIR}/data_fr/mel/${spk}

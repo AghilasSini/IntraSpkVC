@@ -14,7 +14,7 @@
         "segment_length": 10000,
         "sampling_rate": 22050,
         "filter_length": 1024,
-        "hop_length": 221,
+        "hop_length": 222,
         "win_length": 1024,
         "mel_fmin": 0.0,
         "mel_fmax": 8000.0
