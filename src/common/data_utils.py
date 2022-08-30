@@ -45,6 +45,7 @@ from scipy.io import wavfile
 from common import feat
 from common import ppg
 
+import librosa
 import os
 # First order, dx(t) = 0.5(x(t + 1) - x(t - 1))
 DELTA_WIN = [0, -0.5, 0.0, 0.5, 0]
@@ -153,6 +154,8 @@ def append_ppg(feats, f0):
 
     """
     num_feats_frames = feats.shape[0]
+    print(f0.shape)
+    print(num_feats_frames)
     num_f0_frames = f0.shape[0]
     final_num_frames = min([num_feats_frames, num_f0_frames])
     feats = feats[:final_num_frames, :]
@@ -160,6 +163,7 @@ def append_ppg(feats, f0):
     lf0 = np.log(f0 + np.finfo(float).eps)  # Log F0.
     lf0 = lf0.reshape(lf0.shape[0], 1)  # Convert to 2-dim matrix.
     lf0 = compute_delta_acc_feat(lf0, True, True)
+    print(np.concatenate((feats, lf0), axis=1).shape,"additional dim") 
     return np.concatenate((feats, lf0), axis=1)
 
 
@@ -238,93 +242,46 @@ class PPGMelLoader(torch.utils.data.Dataset):
         Returns:
             feat_pairs: A list, each is a [pps, mel] pair.
         """
-        # utt = Utterance()
-        fs, wav = wavfile.read(data_utterance_path)
-        # utt.fs = fs
-        # utt.wav = wav
-        #utt.ppg = get_ppg(data_utterance_path, self.ppg_deps)
-	##TODO get_ppg_chain
-        #print(data_utterance_path)
-	
+        utt = Utterance()
+        wav, fs = librosa.load(data_utterance_path)
+
+        utt.fs = fs
+        utt.wav = wav
+        
+        utt_filename=os.path.splitext(os.path.basename(data_utterance_path))[0]
+        ppg_fpath=os.path.join(self.ppg_fpath,utt_filename+"_ppg.npy")
+
+
+        f0, voiced_flag, voiced_probs = librosa.pyin(wav,
+                                        fmin=60, 
+                                             fmax=700)
+        utt.f0=f0
+        # #librosa.note_to_hz('C2'),
+        utt.ppg = np.load(ppg_fpath)
+    
         ppg_mat = FloatMatrix()
 
-        utt_filename=os.path.splitext(os.path.basename(data_utterance_path))[0]
-
-
-
-
-        ppg_fpath=os.path.join(self.ppg_fpath,utt_filename+"_ppg.npy")
         
-        np_ppg = np.load(ppg_fpath)
+
 
         mel_fpath=os.path.join(self.mel_fpath,utt_filename+".wav.pt")
         acoustic_feats=torch.load(mel_fpath).T
-        # with open(mel_fpath,'rb') as melFile:
-        #     acoustic_feats=pickle.load(melFile)
 
- #        print(" acoustic  file name {} feats size  {} ppg file {} size {}".format(os.path.basename(mel_fpath),acoustic_feats.shape,os.path.basename(ppg_fpath),np_ppg.shape))
-
-
-        # numpy_to_mat(np_ppg, ppg_mat)
-        # utt.ppg = npppg
-		
-    # def extract_utterance_feats(self, data_utterance_path, is_full_ppg=False):
-    #     """Get PPG and Mel (+ optional F0) for an utterance.
-    #     Args:
-    #         data_utterance_path: The path to the data utterance protocol buffer.
-    #         is_full_ppg: If True, will use the full PPGs.
-    #     Returns:
-    #         feat_pairs: A list, each is a [pps, mel] pair.
-    #     """
-    #     utt = Utterance()
-    #     fs, wav = wavfile.read(data_utterance_path)
-    #     utt.fs = fs
-    #     utt.wav = wav
-    #     #utt.ppg = get_ppg(data_utterance_path, self.ppg_deps)
-    # ##TODO get_ppg_chain
-    #     #print(data_utterance_path)
-    
-    #     ppg_mat = FloatMatrix()
-        
-    #     utt_filename=os.path.splitext(os.path.basename(data_utterance_path))[0]
-
-
-
-
-    #     ppg_fpath=os.path.join(self.ppg_fpath,utt_filename+"_ppg.npy")
-        
-    #     np_ppg = np.load(ppg_fpath)
-    #     #numpy_to_mat(npppg, ppg_mat)
-          # utt.ppg = np_ppg
-        
-    #     audio = torch.FloatTensor(utt.wav.astype(np.float32))
-    #     fs = utt.fs
-
-    #     if fs != self.stft.sampling_rate:
-    #         raise ValueError("{} SR doesn't match target {} SR".format(
-    #             fs, self.stft.sampling_rate))
-    #     audio_norm = audio / self.max_wav_value
-    #     audio_norm = audio_norm.unsqueeze(0)
-    #     audio_norm = torch.autograd.Variable(audio_norm, requires_grad=False)
-    #     # (1, n_mel_channels, T)
-    #     acoustic_feats = self.stft.mel_spectrogram(audio_norm)
-    #     # (n_mel_channels, T)
-    #     acoustic_feats = torch.squeeze(acoustic_feats, 0)
-    #     # (T, n_mel_channels)
-    #     acoustic_feats = acoustic_feats.transpose(0, 1)
-    #     #print(acoustic_feats)
         if is_full_ppg:
             if self.is_append_f0:
-                ppg_f0 = append_ppg(np_ppg, utt.f0)
+                ppg_f0 = append_ppg(utt.ppg, utt.f0)
                 return [ppg_f0, acoustic_feats]
             else:
-                return [np_ppg, acoustic_feats]
+                return [utt.ppg, acoustic_feats]
         else:
             if self.is_append_f0:
                 ppg_f0 = append_ppg(utt.monophone_ppg, utt.f0)
                 return [ppg_f0, acoustic_feats]
             else:
                 return [utt.monophone_ppg, acoustic_feats]
+
+
+
 
 
 

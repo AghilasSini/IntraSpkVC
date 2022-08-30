@@ -47,7 +47,7 @@ protoc -I=src/common --python_out=src/common src/common/data_utterance.proto
 if test "$#" -ne 3; then 
 	echo "##########################"
 	echo "Usage:"
-	echo "./cvc-via-ppg_synthesis.sh <ppg_mode_path> <sample_ppg.npy> <target_speaker> "
+	echo "./cvc-via-ppg_grifandlim.sh <ppg_mode_path> <sample_ppg.npy> <target_speaker> "
 	exit 1
 fi
 
@@ -55,7 +55,6 @@ fi
 
 
 ppg2mel_model=${1}
-waveglow_model=/vrac/software/waveglow/waveglow_256channels_universal_v5.pt
 
 teacher_utterance_path=${2}
 output_dir=$PROJECT_ROOT_DIR/data_fr/synth/${3}
@@ -64,6 +63,6 @@ hparams=/vrac/asini/workspace/voice_conversion/IntraSpkVC/data_fr/filelists/${3}
 
 echo "generate sample using ${ppg2mel_model}"
 
-CUDA_VISIBLE_DEVICES=0   python -u ./src/script/generate_synthesis_gl.py --ppg2mel_model  ${ppg2mel_model} --waveglow_model $waveglow_model  --teacher_utterance_path ${teacher_utterance_path}  --output_dir ${output_dir}  --extract_mel True  --hparams ${hparams} 
+CUDA_VISIBLE_DEVICES=0 python -u ./src/script/griffandlim_synth.py  --ppg ${teacher_utterance_path}  --checkpoint ${ppg2mel_model}   --hparams ${hparams}   --out_dirname ${output_dir}  
 
 #CUDA_VISIBLE_DEVICES=0 python -u ./src/script/train_ppg2mel.py ${hparams}

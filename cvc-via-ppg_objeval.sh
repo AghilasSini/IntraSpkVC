@@ -48,7 +48,7 @@ spk=${4}
 if test "$#" -ne 4; then 
 	echo "##########################"
 	echo "Usage:"
-	echo "./cvc-via-ppg_prepare.sh <wav_dir> <out_dir> <model_dir>  <spk_id> "
+	echo "./cvc-via-ppg_objeval.sh <wav_dir> <out_dir> <model_dir>  <spk_id> "
 	exit 1
 fi
 

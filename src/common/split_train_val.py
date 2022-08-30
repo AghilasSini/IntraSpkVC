@@ -1,5 +1,7 @@
 import sys
 import os
+import subprocess
+
 from random import choice
 import librosa
 
@@ -13,6 +15,29 @@ from sklearn.model_selection import train_test_split
 import json
 import codecs
 import numpy
+from tqdm import tqdm
+
+import soundfile as sf
+from soundfile import SoundFile
+
+class FileNotExistException(Exception):
+	def __init__(self,file_path,message="This file does not exists"):
+		self.file_path = file_path
+		self.message = message
+		super().__init__(self.message)
+	def __str__(self):
+		return f'{self.file_path} -> {self.message}'
+
+def audio_formating(fl):
+	with open(fl,'rb') as inFile:
+		data, samplerate = sf.read(inFile)
+	sub_dir=os.path.join(os.path.dirname(fl),'sub_dir')
+	if not os.path.exists(sub_dir):
+		os.mkdir(sub_dir)
+	new_audio_fname=os.path.join(sub_dir,os.path.basename(fl))
+	with SoundFile(new_audio_fname,'w',22050,1,'PCM_16') as nFile:
+		nFile.write(data[:,0])
+	return new_audio_fname
 
 class DataPrepare(object):
 	"""docstring for DataPrepare"""
@@ -38,17 +63,44 @@ class DataPrepare(object):
 		else:
 			print("something wrong")
 
-	def get_file_list (self):
+	def get_file_list (self,max_data_duration=6.25):
 		df=pandas.read_csv(self.file_id_list,sep='|')
-		
-		return [ fl for fl in  df['clips_with_full_path'].to_list() if os.path.exists(fl)]
+		valid_file_list=[]
+		to_convert_list=[]
+		total_duration=0
+		for fl in  tqdm(df['clips_with_full_path'].to_list()):
+			try:
+
+				if not os.path.exists(fl):
+					raise FileNotExistException(fl)
+				
+				wavFile=SoundFile(fl)
+				if wavFile.channels>1:
+					fl=audio_formating(fl)
+				
+				total_duration+= (wavFile.frames/wavFile.samplerate)/60
+				if total_duration>=max_data_duration:
+					return valid_file_list
+					sys.exit(0)
+				
+
+
+				valid_file_list.append(fl)
+			except FileNotExistException as err:
+				print(err)
+		print("##########################################")
+		print(" size of valid files {} --> total duration :{}  ".format(len(valid_file_list),total_duration))
+		print("##########################################")
+		return valid_file_list
 
 	# def valid_audio_file(fl):
 		
 
 	def generate_training_validation_txt (self,list_valid_list):
 	
-		train,test, _,_ = train_test_split(list_valid_list, list_valid_list, test_size=0.05, random_state=42)
+		train,test, _,_ = train_test_split(list_valid_list, list_valid_list, test_size=0.2, random_state=42)
+
+		valid,test, _,_ = train_test_split(test, test, test_size=0.5, random_state=42)
 	
 		training_files_list=os.path.join(self.output_dir_fpath, "training_set.txt")
 
@@ -62,11 +114,23 @@ class DataPrepare(object):
 
 
 		validation_files_list=os.path.join(self.output_dir_fpath, "validation_set.txt")
-		with open(validation_files_list, "w") as test_file:
+		with open(validation_files_list, "w") as valid_file:
+			for elt in valid:
+				valid_file.write(elt+"\n")
+		# update validation set
+		self.hparams_dict['validation_files']=validation_files_list
+
+
+		test_files_list=os.path.join(self.output_dir_fpath, "test_set.txt")
+		with open(test_files_list, "w") as test_file:
 			for elt in test:
 				test_file.write(elt+"\n")
 		# update validation set
-		self.hparams_dict['validation_files']=validation_files_list
+		self.hparams_dict['test_files']=test_files_list
+
+
+
+
 
 		return len(train)
 		
@@ -109,7 +173,7 @@ class DataPrepare(object):
 
 		self.hparams_dict["output_directory"]=os.path.join(model_output_dir,"models/"+self.speaker_id)
 		self.hparams_dict["log_directory"]=os.path.join(model_output_dir,"models/"+self.speaker_id+"/log")
-		self.hparams_dict['ppg_fdir']=os.path.join(model_output_dir,"ppg/"+self.speaker_id)
+		self.hparams_dict['ppg_fdir']=os.path.join(model_output_dir,"ppg_reduce/"+self.speaker_id)
 		self.hparams_dict['mel_fdir']=os.path.join(model_output_dir,"mel/"+self.speaker_id)
 		output_hparams_file=os.path.join(self.output_dir_fpath,"hparams.json")
 

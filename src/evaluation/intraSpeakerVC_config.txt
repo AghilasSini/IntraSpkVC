@@ -1,0 +1,5 @@
+directSpeech-to-directSpeech.csv
+directSpeech_wvoc.csv
+indirectSpeech-to-directSpeech.csv
+indirectSpeech-to-indirectSpeech.csv
+indirectSpeech_wvoc.csv

@@ -60,4 +60,4 @@ fi
 
 
 echo "training ppg to mel model"
-CUDA_VISIBLE_DEVICES=0 python -u ./src/script/train_ppg2mel.py ${hparams}
+CUDA_VISIBLE_DEVICES=1 python -u ./src/script/train_ppg2mel.py ${hparams}

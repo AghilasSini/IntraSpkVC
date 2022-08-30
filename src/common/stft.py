@@ -107,6 +107,10 @@ class STFT(torch.nn.Module):
         return magnitude, phase
 
     def inverse(self, magnitude, phase):
+        #print('magnitude {}'.format(magnitude.is_cuda))
+        if not phase.is_cuda:
+            magnitude=magnitude.cpu()
+
         recombine_magnitude_phase = torch.cat(
             [magnitude*torch.cos(phase), magnitude*torch.sin(phase)], dim=1)
 
@@ -127,7 +131,7 @@ class STFT(torch.nn.Module):
             window_sum = torch.autograd.Variable(
                 torch.from_numpy(window_sum), requires_grad=False)
             inverse_transform[:, :, approx_nonzero_indices] /= window_sum[
-                approx_nonzero_indices].cuda()
+                approx_nonzero_indices].cpu()
 
             # scale by hop ratio
             inverse_transform *= float(self.filter_length) / self.hop_length

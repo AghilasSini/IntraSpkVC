@@ -299,7 +299,7 @@ def train(output_directory, log_directory, checkpoint_path, warm_start, n_gpus,
                                     checkpoint_path)
                     # reinitialize " without progress iterator"--> it_wo_progress 
                     it_wo_progress=0
-                elif rank == 0 and it_wo_progress==10:
+                elif rank == 0 and it_wo_progress==5:
                     print("Early Halt Training Cause / No significant Progress {:.3f} ---> {:.3f} \t\t training Loss {:.3f}".format(min_valid_loss,valid_loss,reduced_loss))
                     print("The best model is saved in {} ".format(checkpoint_path))
                     sys.exit(0)

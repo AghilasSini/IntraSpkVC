@@ -96,9 +96,9 @@ def griffin_lim(magnitudes, stft_fn, n_iters=30):
     stft_fn: STFT class with transform (STFT) and inverse (ISTFT) methods
     """
 
-    angles = np.angle(np.exp(2j * np.pi * np.random.rand(*magnitudes.size())))
+    angles = np.angle(np.exp(2j * np.pi * np.random.rand(*magnitudes.data.cpu().size())))
     angles = angles.astype(np.float32)
-    angles = torch.autograd.Variable(torch.from_numpy(angles))
+    angles = torch.autograd.Variable(torch.from_numpy(angles)).cpu()
     signal = stft_fn.inverse(magnitudes, angles).squeeze(1)
 
     for i in range(n_iters):
