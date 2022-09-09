@@ -42,8 +42,9 @@ from kaldi.matrix import Matrix, Vector
 from kaldi.alignment import  Aligner
 import numpy as np
 
-
-
+from tqdm import tqdm
+import multiprocessing as mp
+import glob
 # import seaborn as sns
 
 # import pandas as pd 
@@ -137,6 +138,32 @@ def  plpp(n_phones, prob_row, pdf2phones):
 	return np.log(ret)
 
 
+
+
+def reduce_ppg_mat(feat):
+	# print(feat)
+	ppg_full_fpath,pdf2phones,n_phones,output_dir_fpath=feat
+	# # start conversion
+	sample_ppg=np.load(ppg_full_fpath)
+
+	# arr = np.array(pdf2phones)
+	# print(arr.shape)
+	an_array = np.zeros((sample_ppg.shape[0], n_phones))
+	for id_row,prob_row in enumerate(sample_ppg):
+		ppg_prob_reduce=plpp(n_phones,prob_row,pdf2phones)
+		
+		ppg_prob_reduce_softmax=softmax(ppg_prob_reduce)
+		an_array[id_row]= ppg_prob_reduce_softmax
+		# print(np.sum(ppg_prob_reduce))
+	num_frames=an_array.shape[0]
+
+
+	ppg_redu_fpath=os.path.join(output_dir_fpath,os.path.basename(ppg_full_fpath))
+	with open(ppg_redu_fpath,'wb') as ppg_red:
+		np.save(ppg_red,an_array)
+
+
+
 def build_arg_parser():
 	parser = argparse.ArgumentParser(description="")
 	# Add options
@@ -153,11 +180,17 @@ def build_arg_parser():
 
 
 
+
+
+
+
+
+
 def main():
 	try:
 		args=build_arg_parser().parse_args()
 		ppg_full_fpath=args.pgg_filepath
-		ppg_redu_fpath=os.path.join(args.output_dir_fpath,os.path.basename(ppg_full_fpath))
+		
 
 		 # Verbose level => logging level
 		log_level = args.verbosity
@@ -173,32 +206,39 @@ def main():
 		start_time = time.time()
 		logging.info("start time = " + time.asctime())
 		# print("start time :{:.3f}".format(time.asctime()))
-
-		sample_ppg=np.load(ppg_full_fpath)
+		# loading model
+	
 		trans_model_path=args.acmod
 		n_phones=259
 		trans_model=Aligner.read_model(trans_model_path)
-		print("after loading the model  {:.3f}".format((time.time() - start_time)/60))
-
-
-
 		pdf2phones=get_pdf_to_phones_map(trans_model)
+
+
+		utts=[utt for utt in glob.glob(ppg_full_fpath+'/*_ppg.npy')]
+
+
+		# print(len(utts))		
+
+		n_samples=len(utts)
+		with mp.Pool(mp.cpu_count()-1) as p:
+			results=list(
+				tqdm(
+					p.imap(
+						reduce_ppg_mat,
+							zip(utts,
+								[pdf2phones]*n_samples,
+								[n_phones]*n_samples,
+								[args.output_dir_fpath]*n_samples,
+								),
+					),
+					total=n_samples,
+				)
+			)	
+
+
 		print("after loading the model  {:.3f}".format((time.time() - start_time)/60))
-		# arr = np.array(pdf2phones)
-		# print(arr.shape)
-		an_array = np.zeros((sample_ppg.shape[0], n_phones))
-		for id_row,prob_row in enumerate(sample_ppg):
-			ppg_prob_reduce=plpp(n_phones,prob_row,pdf2phones)
-			
-			ppg_prob_reduce_softmax=softmax(ppg_prob_reduce)
-			an_array[id_row]= ppg_prob_reduce_softmax
-			# print(np.sum(ppg_prob_reduce))
-		num_frames=an_array.shape[0]
+		print("after loading the model  {:.3f}".format((time.time() - start_time)/60))
 
-
-	
-		with open(ppg_redu_fpath,'wb') as ppg_red:
-			np.save(ppg_red,an_array)
 			# Debug time
 		print(" ending processing {:.3f}".format((time.time() - start_time) / 60.0))
 		logging.info("end time = " + time.asctime())

@@ -51,6 +51,8 @@ class STFT(torch.nn.Module):
         self.win_length = win_length
         self.window = window
         self.forward_transform = None
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
         scale = self.filter_length / self.hop_length
         fourier_basis = np.fft.fft(np.eye(self.filter_length))
 
@@ -107,9 +109,7 @@ class STFT(torch.nn.Module):
         return magnitude, phase
 
     def inverse(self, magnitude, phase):
-        #print('magnitude {}'.format(magnitude.is_cuda))
-        if not phase.is_cuda:
-            magnitude=magnitude.cpu()
+        magnitude=magnitude.to(self.device)
 
         recombine_magnitude_phase = torch.cat(
             [magnitude*torch.cos(phase), magnitude*torch.sin(phase)], dim=1)
@@ -131,7 +131,7 @@ class STFT(torch.nn.Module):
             window_sum = torch.autograd.Variable(
                 torch.from_numpy(window_sum), requires_grad=False)
             inverse_transform[:, :, approx_nonzero_indices] /= window_sum[
-                approx_nonzero_indices].cpu()
+                approx_nonzero_indices].to(self.device)
 
             # scale by hop ratio
             inverse_transform *= float(self.filter_length) / self.hop_length

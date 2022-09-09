@@ -65,8 +65,8 @@ config_fpath=/vrac/asini/workspace/voice_conversion/IntraSpkVC/src/waveglow/conf
 # prepare data used for extracting ppg
 echo "prepare data for ${spk}"
 python -u ./src/common/split_train_val.py $Wav_dir $Out_dir $Model_dir $spk --hparams ${PROJECT_ROOT_DIR}/data_fr/default_hparams.json
-#echo "PPG extraction data preparation 1st step is done"
-#python -u ./src/script/extract_ppg.py ${spk}
+echo "PPG extraction data preparation 1st step is done"
+python -u ./src/script/extract_ppg.py ${spk}
 echo "Extract acoustic features MelSpectrogram"
 #ls  ${PROJECT_ROOT_DIR}/data_fr/wav/${spk}/*.wav >${PROJECT_ROOT_DIR}/data_fr/filelists/${spk}/file_id_wav.scp
 file_wav_list=${PROJECT_ROOT_DIR}/data_fr/filelists/${spk}/file_id_wav.scp

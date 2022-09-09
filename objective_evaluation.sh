@@ -33,12 +33,15 @@ export PYTHONPATH=$PROJECT_ROOT_DIR/src:$PYTHONPATH
 
 protoc -I=src/common --python_out=src/common src/common/data_utterance.proto
 
+. /vrac/aperquin/miniconda3/etc/profile.d/conda.sh && conda activate waveglow
 
 
 
 
-Wav_dir=${1} #   ${PROJECT_ROOT_DIR}/data_fr/wav/${mode}/${spk}
-Out_dir=${2}  #{PROJECT_ROOT_DIR}/data_fr/filelists/${mode}/${spk}
+
+
+refr_file_list=${1} #   ${PROJECT_ROOT_DIR}/data_fr/wav/${mode}/${spk}
+conv_file_list=${2}  #{PROJECT_ROOT_DIR}/data_fr/filelists/${mode}/${spk}
 Model_dir=${3}
 spk=${4}
 

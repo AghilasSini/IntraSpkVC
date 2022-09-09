@@ -125,4 +125,7 @@ log/*
 tools/*
 output/*
 test/data/*
+src/evaluation/*.scp
+src/evaluation/*.tsv
+^.*.swp
 tools/protoc-3.19.4-linux-x86_64/*

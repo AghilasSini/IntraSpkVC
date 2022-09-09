@@ -63,6 +63,26 @@ hparams=/vrac/asini/workspace/voice_conversion/IntraSpkVC/data_fr/filelists/${3}
 
 echo "generate sample using ${ppg2mel_model}"
 
+test_data_set=/vrac/asini/workspace/voice_conversion/IntraSpkVC/data_fr/filelists/${3}/test_set.txt
+if [ -f $teacher_utterance_path ];then
+	rm $teacher_utterance_path
+fi
+
+for fl in `cat ${test_data_set}`;do
+	testFile=/vrac/asini/workspace/voice_conversion/IntraSpkVC/data_fr/ppg_reduce/`echo ${3}|cut -d _ -f 1`/`basename ${fl%.wav}`_ppg.npy
+	#echo $testFile
+	if [ -f $testFile ];then
+		echo $testFile >> $teacher_utterance_path
+	fi
+
+done
+
+
+
+if [ ! -f ${output_dir} ];then
+	mkdir -p ${output_dir}
+fi
+
 CUDA_VISIBLE_DEVICES=0 python -u ./src/script/griffandlim_synth.py  --ppg ${teacher_utterance_path}  --checkpoint ${ppg2mel_model}   --hparams ${hparams}   --out_dirname ${output_dir}  
 
 #CUDA_VISIBLE_DEVICES=0 python -u ./src/script/train_ppg2mel.py ${hparams}

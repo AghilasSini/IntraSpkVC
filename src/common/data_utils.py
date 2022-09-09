@@ -243,19 +243,13 @@ class PPGMelLoader(torch.utils.data.Dataset):
             feat_pairs: A list, each is a [pps, mel] pair.
         """
         utt = Utterance()
-        wav, fs = librosa.load(data_utterance_path)
-
-        utt.fs = fs
-        utt.wav = wav
+      
         
         utt_filename=os.path.splitext(os.path.basename(data_utterance_path))[0]
         ppg_fpath=os.path.join(self.ppg_fpath,utt_filename+"_ppg.npy")
 
 
-        f0, voiced_flag, voiced_probs = librosa.pyin(wav,
-                                        fmin=60, 
-                                             fmax=700)
-        utt.f0=f0
+     
         # #librosa.note_to_hz('C2'),
         utt.ppg = np.load(ppg_fpath)
     
@@ -269,6 +263,11 @@ class PPGMelLoader(torch.utils.data.Dataset):
 
         if is_full_ppg:
             if self.is_append_f0:
+                wav, fs =	 librosa.load(data_utterance_path)
+                utt.fs = fs
+                utt.wav = wav
+                f0, voiced_flag, voiced_probs = librosa.pyin(wav,fmin=60, fmax=700)
+                utt.f0=f0
                 ppg_f0 = append_ppg(utt.ppg, utt.f0)
                 return [ppg_f0, acoustic_feats]
             else:

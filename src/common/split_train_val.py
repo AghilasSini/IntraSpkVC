@@ -63,7 +63,7 @@ class DataPrepare(object):
 		else:
 			print("something wrong")
 
-	def get_file_list (self,max_data_duration=6.25):
+	def get_file_list (self,max_data_duration=300):
 		df=pandas.read_csv(self.file_id_list,sep='|')
 		valid_file_list=[]
 		to_convert_list=[]
@@ -75,7 +75,7 @@ class DataPrepare(object):
 					raise FileNotExistException(fl)
 				
 				wavFile=SoundFile(fl)
-				if wavFile.channels>1:
+				if wavFile.channels>1 or wavFile.samplerate!=self.hparams_dict['sampling_rate']:
 					fl=audio_formating(fl)
 				
 				total_duration+= (wavFile.frames/wavFile.samplerate)/60
