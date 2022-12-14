@@ -35,6 +35,9 @@ import numpy as np
 from scipy.signal import get_window
 import librosa.util as librosa_util
 
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+
 
 def window_sumsquare(window, n_frames, hop_length=200, win_length=800,
                      n_fft=800, dtype=np.float32, norm=None):
@@ -96,9 +99,9 @@ def griffin_lim(magnitudes, stft_fn, n_iters=30):
     stft_fn: STFT class with transform (STFT) and inverse (ISTFT) methods
     """
 
-    angles = np.angle(np.exp(2j * np.pi * np.random.rand(*magnitudes.data.cpu().size())))
+    angles = np.angle(np.exp(2j * np.pi * np.random.rand(*magnitudes.data.to(device).size())))
     angles = angles.astype(np.float32)
-    angles = torch.autograd.Variable(torch.from_numpy(angles)).cpu()
+    angles = torch.autograd.Variable(torch.from_numpy(angles)).to(device)
     signal = stft_fn.inverse(magnitudes, angles).squeeze(1)
 
     for i in range(n_iters):

@@ -63,7 +63,7 @@ hparams=/vrac/asini/workspace/voice_conversion/IntraSpkVC/data_fr/filelists/${3}
 
 echo "generate sample using ${ppg2mel_model}"
 
-test_data_set=/vrac/asini/workspace/voice_conversion/IntraSpkVC/data_fr/filelists/${3}/test_set.txt
+test_data_set=${PROJECT_ROOT_DIR}/data_fr/filelists/${3}/test_set.txt
 if [ -f $teacher_utterance_path ];then
 	rm $teacher_utterance_path
 fi

@@ -47,7 +47,7 @@ protoc -I=src/common --python_out=src/common src/common/data_utterance.proto
 if test "$#" -ne 3; then 
 	echo "##########################"
 	echo "Usage:"
-	echo "./cvc-via-ppg_synthesis.sh <ppg_mode_path> <sample_ppg.npy> <target_speaker> "
+	echo "./cvc-via-ppg_synthesis.sh <ppg_model_path> <sample_ppg.npy> <target_speaker> "
 	exit 1
 fi
 
